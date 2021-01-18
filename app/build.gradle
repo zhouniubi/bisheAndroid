@@ -4,7 +4,7 @@ plugins {
 
 android {
     compileSdkVersion 29
-
+   // android{compileOptions.encoding="GBK"}
     defaultConfig {
         applicationId "com.example.daiqu"
         minSdkVersion 29

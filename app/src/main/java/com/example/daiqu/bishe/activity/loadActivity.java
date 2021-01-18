@@ -51,7 +51,7 @@ public class loadActivity extends Activity {
         notice = findViewById(R.id.noticeMsg);
         cha = findViewById(R.id.cha1);
         eye = findViewById(R.id.eye);
-        forget_pwd = findViewById(R.id.forget_pwd);
+        forget_pwd = findViewById(R.id.login_pwd);
         //设置只能输入数字
         phone_input.setInputType(InputType.TYPE_CLASS_NUMBER);
         load_button.setEnabled(false);
@@ -65,7 +65,7 @@ public class loadActivity extends Activity {
             dataMap.put("phone", phone);
             dataMap.put("pwd", pwd);
             new Thread(() -> {
-                String state = HttpUtils.sendPostMessage(dataMap, "GBK", "login");
+                String state = HttpUtils.sendPostMessage(dataMap, "UTF-8", "login");
                 runOnUiThread(new Thread(() -> {
                     if (!isPhone(phone_input.getText().toString())) {
                         notice.setText("请输入正确的手机号！");

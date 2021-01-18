@@ -57,7 +57,7 @@ public class AES {
             // 初始化为解密模式的密码器
             cipher.init(Cipher.DECRYPT_MODE, key);
             byte[] result = cipher.doFinal(Hex.decodeHex(code.toCharArray()));
-            return new String(result,"GBK"); // 明文
+            return new String(result); // 明文
         }catch (Exception e){
             e.printStackTrace();
         }

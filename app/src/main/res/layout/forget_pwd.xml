@@ -33,7 +33,7 @@
             android:src="@drawable/cha"
             android:visibility="invisible" />
 
-        <Button
+        <ImageView
             android:id="@+id/search_mibao_btn"
             android:layout_width="60dp"
             android:layout_height="45dp"
@@ -41,12 +41,10 @@
             android:layout_alignStart="@id/forget_phone"
             android:layout_alignEnd="@id/forget_phone"
             android:layout_marginTop="18dp"
-            android:background="@drawable/search_button"
+            android:src="@drawable/selector_search_img"
             android:gravity="center"
-            android:text="🔍"
-            android:textColor="@color/white"
             android:visibility="visible"
-            android:textSize="20sp" />
+            />
 
         <TextView
             android:layout_width="250dp"
@@ -144,7 +142,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/forget_pwd"
+            android:id="@+id/login_pwd"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -155,13 +153,13 @@
             android:textColorHint="#CFCCCC"
             android:textSize="15dp" />
         <ImageView
-            android:id="@+id/eye1"
+            android:id="@+id/eye3"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:padding="10dp"
             android:src="@drawable/eye_close"
-            android:layout_alignEnd="@id/forget_pwd"
-            android:layout_alignBottom="@id/forget_pwd"
+            android:layout_alignEnd="@id/login_pwd"
+            android:layout_alignBottom="@id/login_pwd"
             android:visibility="invisible"
             />
         <TextView
@@ -172,7 +170,7 @@
             android:layout_gravity="center"
             android:textColor="#FF0000"
             android:textSize="12sp"
-            android:layout_below="@id/forget_pwd"
+            android:layout_below="@id/login_pwd"
             />
     </RelativeLayout>
     <Button
