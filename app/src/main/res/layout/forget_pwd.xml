@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/forget_phone"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext2"
+            android:hint="请输入待修改的手机号:"
+            android:textColorHint="#CFCCCC"
+            android:textSize="15dp" />
+
+
+        <ImageView
+            android:id="@+id/cha2"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignEnd="@id/forget_phone"
+            android:layout_alignBottom="@id/forget_phone"
+            android:padding="10dp"
+            android:src="@drawable/cha"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/search_mibao_btn"
+            android:layout_width="60dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/forget_phone"
+            android:layout_alignStart="@id/forget_phone"
+            android:layout_alignEnd="@id/forget_phone"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/search_button"
+            android:gravity="center"
+            android:text="🔍"
+            android:textColor="@color/white"
+            android:visibility="visible"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeMsg1"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:textColor="#FF0000"
+            android:textSize="12sp"
+            android:layout_below="@id/forget_phone"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/layout_mibao1"
+        android:orientation="vertical">
+    <EditText
+        android:id="@+id/mibao1"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext2"
+        android:hint="请输入密保1:"
+        android:textColorHint="#CFCCCC"
+        android:textSize="15dp" />
+        <ImageView
+            android:id="@+id/cha3"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignEnd="@id/mibao1"
+            android:layout_alignBottom="@id/mibao1"
+            android:padding="10dp"
+            android:src="@drawable/cha"
+            android:visibility="invisible" />
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeMsg3"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:textColor="#FF0000"
+            android:textSize="12sp"
+            android:layout_below="@id/mibao1"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/layout_mibao2"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/mibao2"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext2"
+            android:hint="请输入密保2:"
+            android:textColorHint="#CFCCCC"
+            android:textSize="15dp" />
+        <ImageView
+            android:id="@+id/cha4"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignEnd="@id/mibao2"
+            android:layout_alignBottom="@id/mibao2"
+            android:padding="10dp"
+            android:src="@drawable/cha"
+            android:visibility="invisible" />
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeMsg4"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:layout_below="@id/mibao2"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layout_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/forget_pwd"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext2"
+            android:hint="请修改密码为(密码长度为6~15位):"
+            android:inputType="textPassword"
+            android:textColorHint="#CFCCCC"
+            android:textSize="15dp" />
+        <ImageView
+            android:id="@+id/eye1"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="10dp"
+            android:src="@drawable/eye_close"
+            android:layout_alignEnd="@id/forget_pwd"
+            android:layout_alignBottom="@id/forget_pwd"
+            android:visibility="invisible"
+            />
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeMsg2"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:textColor="#FF0000"
+            android:textSize="12sp"
+            android:layout_below="@id/forget_pwd"
+            />
+    </RelativeLayout>
+    <Button
+        android:id="@+id/forget_btn"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/select_load_bt"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:textSize="12sp"/>
+</LinearLayout>
