@@ -29,17 +29,14 @@ import java.util.regex.Pattern;
 public class loadActivity extends Activity {
 
     private EditText phone_input, pwd_input;
-    private TextView notice,forget_pwd;
+    private TextView notice,forget_pwd,login;
     private ImageView cha, eye;
     private Button load_button;
     private String phone = "", pwd = "";
-
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //状态栏文字自适应
@@ -51,7 +48,8 @@ public class loadActivity extends Activity {
         notice = findViewById(R.id.noticeMsg);
         cha = findViewById(R.id.cha1);
         eye = findViewById(R.id.eye);
-        forget_pwd = findViewById(R.id.login_pwd);
+        forget_pwd = findViewById(R.id.login_forget);
+        login = findViewById(R.id.load_login);
         //设置只能输入数字
         phone_input.setInputType(InputType.TYPE_CLASS_NUMBER);
         load_button.setEnabled(false);
@@ -92,6 +90,11 @@ public class loadActivity extends Activity {
         //跳转修改密码界面
         forget_pwd.setOnClickListener(v -> {
             Intent intent = new Intent(loadActivity.this, forgetPwdActivity.class);
+            startActivity(intent);
+        });
+        //跳转注册界面
+        login.setOnClickListener(v -> {
+            Intent intent = new Intent(loadActivity.this, loginActivity.class);
             startActivity(intent);
         });
         //一键手机号置空

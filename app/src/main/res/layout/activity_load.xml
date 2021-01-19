@@ -107,33 +107,33 @@
         android:orientation="horizontal"
         android:layout_marginBottom="100dp">
         <TextView
-            android:id="@+id/sign"
+            android:id="@+id/load_login"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingStart="20dp"
             android:text="注册新用户"
-            android:textSize="10dp"
+            android:textSize="12sp"
             />
         <TextView
-            android:id="@+id/introduce"
+            android:id="@+id/load_introduce"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="软件介绍"
-            android:textSize="10dp"
+            android:textSize="12sp"
             />
         <TextView
-            android:id="@+id/login_pwd"
+            android:id="@+id/login_forget"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingEnd="20dp"
             android:gravity="center"
             android:text="忘记密码"
-            android:textSize="10dp"
+            android:textSize="12sp"
             />
     </LinearLayout>
 </LinearLayout>

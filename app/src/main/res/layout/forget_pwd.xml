@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="60dp">
 
         <EditText
             android:id="@+id/forget_phone"
@@ -142,7 +142,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/login_pwd"
+            android:id="@+id/forget_pwd"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -153,13 +153,13 @@
             android:textColorHint="#CFCCCC"
             android:textSize="15dp" />
         <ImageView
-            android:id="@+id/eye3"
+            android:id="@+id/eye1"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:padding="10dp"
             android:src="@drawable/eye_close"
-            android:layout_alignEnd="@id/login_pwd"
-            android:layout_alignBottom="@id/login_pwd"
+            android:layout_alignEnd="@id/forget_pwd"
+            android:layout_alignBottom="@id/forget_pwd"
             android:visibility="invisible"
             />
         <TextView
@@ -170,7 +170,7 @@
             android:layout_gravity="center"
             android:textColor="#FF0000"
             android:textSize="12sp"
-            android:layout_below="@id/login_pwd"
+            android:layout_below="@id/forget_pwd"
             />
     </RelativeLayout>
     <Button

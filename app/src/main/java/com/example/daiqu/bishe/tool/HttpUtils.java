@@ -10,11 +10,9 @@ import java.net.URL;
 import java.util.Map;
 
 public class HttpUtils {
-//    private static String PATH = "http://192.168.43.165:8080/";
     private static String PATH = "http://192.168.0.105:8080/";
     private static URL url;
     public HttpUtils() {}
-
 //    static{
 //        try {
 //            url = new URL(PATH);
@@ -41,7 +39,6 @@ public class HttpUtils {
                     buffer.append(entry.getKey()).append("\":\"").
                             append(entry.getValue()).
                             append("\",");
-
                 }
             }
             //删除最后一个字符&，多了一个;主体设置完毕
@@ -55,7 +52,6 @@ public class HttpUtils {
             connection.setConnectTimeout(6000);
             connection.setDoInput(true);//表示从服务器获取数据
             connection.setDoOutput(true);//表示向服务器写数据
-
             connection.setRequestMethod("POST");
             //是否使用缓存
             connection.setUseCaches(false);
@@ -72,7 +68,6 @@ public class HttpUtils {
             int responseCode = connection.getResponseCode();
             if(responseCode == HttpURLConnection.HTTP_OK){
                 return changeInputeStream(connection.getInputStream(),encode);
-
             }
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block

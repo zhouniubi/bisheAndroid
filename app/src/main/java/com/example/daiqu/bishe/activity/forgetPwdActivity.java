@@ -123,13 +123,13 @@ public class forgetPwdActivity extends Activity {
                 String state = msg.obj.toString();
                 switch (state){
                     case "fg_1":
-                        Toast.makeText(myActivity.getApplicationContext(),"更新成功！",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(myActivity.getApplicationContext(),"更新成功！请返回重新登陆一下吧(￣▽￣)",Toast.LENGTH_SHORT).show();
                         break;
                     case "fg_0":
-                        Toast.makeText(myActivity.getApplicationContext(),"密保答案错误！",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(myActivity.getApplicationContext(),"密保答案错误！Σ(っ °Д °;)っ",Toast.LENGTH_SHORT).show();
                         break;
                     default:
-                        Toast.makeText(myActivity.getApplicationContext(),"服务器错误。。。",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(myActivity.getApplicationContext(),"服务器错误！＞﹏＜",Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -144,13 +144,13 @@ public class forgetPwdActivity extends Activity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.forget_pwd);
         forget_phone = findViewById(R.id.forget_phone);
-        forget_pwd = findViewById(R.id.login_pwd);
+        forget_pwd = findViewById(R.id.forget_pwd);
         mibao1 = findViewById(R.id.mibao1);
         mibao2 = findViewById(R.id.mibao2);
         cha2 = findViewById(R.id.cha2);
         cha3 = findViewById(R.id.cha3);
         cha4 = findViewById(R.id.cha4);
-        eye1 = findViewById(R.id.eye3);
+        eye1 = findViewById(R.id.eye1);
         layout_pwd = findViewById(R.id.layout_pwd);
         layout_mibao1 = findViewById(R.id.layout_mibao1);
         layout_mibao2 = findViewById(R.id.layout_mibao2);
@@ -181,27 +181,21 @@ public class forgetPwdActivity extends Activity {
 
         });
         //提交密保答案并修改密码
-        forget_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HashMap<String,String> map = new HashMap<>();
-                String phone = AES.encrypt(forget_phone.getText().toString());
-                String answer1 = AES.encrypt(mibao1.getText().toString());
-                String answer2 = AES.encrypt(mibao2.getText().toString());
-                String pwd = AES.encrypt(forget_pwd.getText().toString());
-                map.put("phone",phone);map.put("answer1",answer1);
-                map.put("answer2",answer2);map.put("pwd",pwd);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String state = HttpUtils.sendPostMessage(map,"UTF-8", "updateForgetPwd");
-                        Message msg = new Message();
-                        msg.obj = state;
-                        myHandler.sendMessage(msg);
-                        msg.what = 2;
-                    }
-                }).start();
-            }
+        forget_btn.setOnClickListener(v -> {
+            HashMap<String,String> map = new HashMap<>();
+            String phone = AES.encrypt(forget_phone.getText().toString());
+            String answer1 = AES.encrypt(mibao1.getText().toString());
+            String answer2 = AES.encrypt(mibao2.getText().toString());
+            String pwd = AES.encrypt(forget_pwd.getText().toString());
+            map.put("phone",phone);map.put("answer1",answer1);
+            map.put("answer2",answer2);map.put("pwd",pwd);
+            new Thread(() -> {
+                String state = HttpUtils.sendPostMessage(map,"UTF-8", "updateForgetPwd");
+                Message msg = new Message();
+                msg.obj = state;
+                myHandler.sendMessage(msg);
+                msg.what = 2;
+            }).start();
         });
         //设置一键清空输入栏
         cha2.setOnClickListener(v -> forget_phone.setText(""));
@@ -236,6 +230,7 @@ public class forgetPwdActivity extends Activity {
         TextChanger textChanger = new TextChanger();
         forget_phone.addTextChangedListener(textChanger);
         forget_pwd.addTextChangedListener(textChanger);
+
         mibao1.addTextChangedListener(textChanger);
         mibao2.addTextChangedListener(textChanger);
     }
