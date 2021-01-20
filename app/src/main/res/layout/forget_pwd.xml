@@ -148,7 +148,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext2"
-            android:hint="请修改密码为(密码长度为6~15位):"
+            android:hint="请修改密码:(6~15位数字字母组合)"
             android:inputType="textPassword"
             android:textColorHint="#CFCCCC"
             android:textSize="15dp" />

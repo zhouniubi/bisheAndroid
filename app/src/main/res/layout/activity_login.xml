@@ -30,24 +30,67 @@
             android:padding="10dp"
             android:src="@drawable/cha"
             android:visibility="invisible" />
+        <TextView
+            android:id="@+id/noticeMsglogin_phone"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_phone"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:textColor="#FF0000"
+            android:textSize="12sp" />
 
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="2dp">
+        <EditText
+            android:id="@+id/login_name"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext2"
+            android:hint="请输入姓名:"
+            android:maxLength="15"
+            android:textColorHint="#CFCCCC"
+            android:textSize="15sp" />
+        <ImageView
+            android:id="@+id/cha6"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignEnd="@id/login_name"
+            android:layout_alignBottom="@id/login_name"
+            android:padding="10dp"
+            android:src="@drawable/cha"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/noticeMsglogin_name"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_name"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:textColor="#FF0000"
+            android:textSize="12sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="2dp">
 
         <EditText
             android:id="@+id/login_pwd"
             android:layout_width="300dp"
             android:layout_height="45dp"
-            android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext2"
-            android:hint="请输入密码(密码长度为6~15位):"
+            android:hint="请输入密码(6~15位数字字母组合):"
             android:maxLength="15"
             android:inputType="textPassword"
             android:textColorHint="#CFCCCC"
@@ -168,6 +211,15 @@
         android:textColorHint="#CFCCCC"
         android:textSize="15sp"
         />
+        <ImageView
+            android:id="@+id/cha7"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignEnd="@id/yanzheng_code"
+            android:layout_alignBottom="@id/yanzheng_code"
+            android:padding="10dp"
+            android:src="@drawable/cha"
+            android:visibility="invisible" />
         <Button
             android:id="@+id/getyanzheng"
             android:layout_width="90dp"
@@ -178,6 +230,15 @@
             android:background="@drawable/select_yanzhen_bt"
             android:textColor="@color/white"
             android:text="验证码"/>
+        <TextView
+            android:id="@+id/noticeMsglogin_yanzheng"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/yanzheng_code"
+            android:layout_gravity="center"
+            android:layout_marginStart="55dp"
+            android:textColor="#FF0000"
+            android:textSize="12sp" />
     </RelativeLayout>
     <Button
         android:id="@+id/login_btn"
@@ -185,7 +246,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
-        android:background="@drawable/select_radio_bt_shape"
+        android:background="@drawable/select_yanzhen_bt"
         android:gravity="center"
         android:text="注册"
         android:textColor="@color/white"

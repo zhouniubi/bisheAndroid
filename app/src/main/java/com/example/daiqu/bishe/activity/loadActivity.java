@@ -63,7 +63,7 @@ public class loadActivity extends Activity {
             dataMap.put("phone", phone);
             dataMap.put("pwd", pwd);
             new Thread(() -> {
-                String state = HttpUtils.sendPostMessage(dataMap, "UTF-8", "login");
+                String state = HttpUtils.sendPostMessage(dataMap, "UTF-8", "load");
                 runOnUiThread(new Thread(() -> {
                     if (!isPhone(phone_input.getText().toString())) {
                         notice.setText("请输入正确的手机号！");
@@ -134,6 +134,7 @@ public class loadActivity extends Activity {
         Matcher matcher = pattern.matcher(phone);
         return matcher.find();
     }
+    //判断密码是否规范
 
     //设置光标在末尾
     public static void setSelectionEnd(EditText editText) {

@@ -1,7 +1,14 @@
 plugins {
     id 'com.android.application'
-}
 
+}
+//MOBSDK
+apply plugin: 'com.mob.sdk'
+MobSDK {
+    appKey "32248c7149128"
+    appSecret "3c4985489d3ac7c3f6d9c33a84f46c6b"
+    SMSSDK {}
+}
 android {
     compileSdkVersion 29
    // android{compileOptions.encoding="GBK"}

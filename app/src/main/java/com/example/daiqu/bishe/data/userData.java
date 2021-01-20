@@ -2,8 +2,8 @@ package com.example.daiqu.bishe.data;
 
 public class userData {
     private int id;
-    private int identity;
-    private int sex;
+    private String identity;
+    private String sex;
     private String phone;
     private String introduce;
     private String name;
@@ -17,19 +17,19 @@ public class userData {
         this.id = id;
     }
 
-    public int getIdentity() {
+    public String getIdentity() {
         return identity;
     }
 
-    public void setIdentity(int identity) {
+    public void setIdentity(String identity) {
         this.identity = identity;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

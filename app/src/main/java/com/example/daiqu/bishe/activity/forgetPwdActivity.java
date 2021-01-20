@@ -25,6 +25,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.example.daiqu.R;
 import com.example.daiqu.bishe.tool.AES;
 import com.example.daiqu.bishe.tool.HttpUtils;
+import com.example.daiqu.bishe.tool.tool;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class forgetPwdActivity extends Activity {
     private RelativeLayout layout_mibao1, layout_mibao2, layout_pwd;
     private Button  forget_btn;
     private ImageView cha2, eye1, cha3, cha4, search_mibao_img;
-    private TextView noticeMsg1;
+    private TextView noticeMsg1,noticeMsg2;
     private final MyHandler myHandler = new MyHandler(this);
 
     //定义内部类的handler解决警报问题（关于潜在的内存泄漏问题）
@@ -157,6 +158,7 @@ public class forgetPwdActivity extends Activity {
         search_mibao_img = findViewById(R.id.search_mibao_btn);
         forget_btn = findViewById(R.id.forget_btn);
         noticeMsg1 = findViewById(R.id.noticeMsg1);
+        noticeMsg2 = findViewById(R.id.noticeMsg2);
         initListener();
         //通过手机号查询是否设置了密保
         search_mibao_img.setEnabled(false);
@@ -182,20 +184,27 @@ public class forgetPwdActivity extends Activity {
         });
         //提交密保答案并修改密码
         forget_btn.setOnClickListener(v -> {
-            HashMap<String,String> map = new HashMap<>();
-            String phone = AES.encrypt(forget_phone.getText().toString());
-            String answer1 = AES.encrypt(mibao1.getText().toString());
-            String answer2 = AES.encrypt(mibao2.getText().toString());
-            String pwd = AES.encrypt(forget_pwd.getText().toString());
-            map.put("phone",phone);map.put("answer1",answer1);
-            map.put("answer2",answer2);map.put("pwd",pwd);
-            new Thread(() -> {
-                String state = HttpUtils.sendPostMessage(map,"UTF-8", "updateForgetPwd");
-                Message msg = new Message();
-                msg.obj = state;
-                myHandler.sendMessage(msg);
-                msg.what = 2;
-            }).start();
+            if(!tool.isPwd(forget_pwd.getText().toString())){
+                noticeMsg2.setText("注意：密码由6~15位数字字母组合而成！");
+            }else{
+                noticeMsg2.setText("");
+                forget_btn.setEnabled(true);
+                HashMap<String,String> map = new HashMap<>();
+                String phone = AES.encrypt(forget_phone.getText().toString());
+                String answer1 = AES.encrypt(mibao1.getText().toString());
+                String answer2 = AES.encrypt(mibao2.getText().toString());
+                String pwd = AES.encrypt(forget_pwd.getText().toString());
+                map.put("phone",phone);map.put("answer1",answer1);
+                map.put("answer2",answer2);map.put("pwd",pwd);
+                new Thread(() -> {
+                    String state = HttpUtils.sendPostMessage(map,"UTF-8", "updateForgetPwd");
+                    Message msg = new Message();
+                    msg.obj = state;
+                    myHandler.sendMessage(msg);
+                    msg.what = 2;
+                }).start();
+            }
+
         });
         //设置一键清空输入栏
         cha2.setOnClickListener(v -> forget_phone.setText(""));
@@ -278,6 +287,8 @@ public class forgetPwdActivity extends Activity {
             } else {
                 forget_btn.setEnabled(true);
             }
+
+
 
         }
     }
