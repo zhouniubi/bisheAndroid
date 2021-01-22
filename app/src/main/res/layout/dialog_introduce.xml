@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_introduce"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="70dp"
+        android:id="@+id/dialog_title"
+        android:layout_gravity="center"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="这是一个关于本App的介绍嗷"
+        android:textColor="@color/select_text_color"
+        android:textSize="25sp"/>
+    <TextView
+        android:id="@+id/introduce"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textColor="#05C7D8"
+        android:text="这是一个代取app啦，希望大家天天开心(　o=^•ェ•)o，如果存在使用问题请及时联系作者！"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/author_information"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textColor="#05C7D8"
+        android:text="QQ:2308911314                              手机号：18801073903"
+        android:textSize="20sp"/>
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center"
+        android:background="@drawable/paimeng"/>
+
+</LinearLayout>

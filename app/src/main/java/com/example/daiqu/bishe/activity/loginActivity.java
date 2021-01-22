@@ -38,6 +38,7 @@ import cn.smssdk.SMSSDK;
 public class loginActivity extends Activity {
     private String sex = "1", identity = "1";
     protected String AppKey = "32248c7149128", AppSecret = "3c4985489d3ac7c3f6d9c33a84f46c6b";
+
     //定义内部类的handler解决警报问题（关于潜在的内存泄漏问题）
     private static class MyHandler extends Handler {
         private final WeakReference<loginActivity> mActivity;
@@ -50,6 +51,8 @@ public class loginActivity extends Activity {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             loginActivity myActivity = mActivity.get();
+           /* msg.what=1:处理短信验证码等相关的问题；
+              msg.what=2:处理注册结果*/
             if (msg.what == 1) {
                 int event = msg.arg1;
                 int result = msg.arg2;
@@ -84,7 +87,7 @@ public class loginActivity extends Activity {
                         }).start();
                     } else {
                         // TODO 处理错误的结果
-                        Toast.makeText(myActivity,"验证码错误",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(myActivity, "验证码错误", Toast.LENGTH_SHORT).show();
                         ((Throwable) data).printStackTrace();
                     }
                 }
@@ -100,6 +103,7 @@ public class loginActivity extends Activity {
             }
         }
     }
+
     EventHandler eventHandler = new EventHandler() {
         @Override
         public void afterEvent(int event, int result, Object data) {
@@ -107,17 +111,17 @@ public class loginActivity extends Activity {
             msg.arg1 = event;
             msg.arg2 = result;
             msg.obj = data;
-            msg.what=1;
+            msg.what = 1;
             myHandler.sendMessage(msg);
         }
     };
 
-    private EditText login_phone, login_pwd, yanzheng_code, login_name;
-    private ImageView cha5, eye2, cha6, cha7;
+    private EditText login_phone, login_pwd, yanzheng_code, login_name, login_pwd_verify;
+    private ImageView cha5, eye2, cha6, cha7, eye3;
     private Button login_btn, getyanzheng;
     private RadioGroup login_radioGropSex, login_radioGropIdentity;
     private RadioButton radio_bt_boy, radio_bt_girl, radio_bt_teacher, radio_bt_student;
-    private TextView text_boy, text_girl, noticeMsglogin_phone, noticeMsglogin_pwd, noticeMsglogin_yanzheng, noticeMsglogin_name;
+    private TextView text_boy, text_girl, noticeMsglogin_phone, noticeMsglogin_pwd, noticeMsglogin_yanzheng, noticeMsglogin_name, noticeMsglogin_pwd_verify;
 
     private final MyHandler myHandler = new MyHandler(this);
 
@@ -154,6 +158,9 @@ public class loginActivity extends Activity {
         cha6 = findViewById(R.id.cha6);
         cha7 = findViewById(R.id.cha7);
         noticeMsglogin_name = findViewById(R.id.noticeMsglogin_name);
+        eye3 = findViewById(R.id.eye3);
+        login_pwd_verify = findViewById(R.id.login_pwd_verify);
+        noticeMsglogin_pwd_verify = findViewById(R.id.noticeMsglogin_pwd_verify);
         initListener();
         login_btn.setEnabled(false);
         radio_bt_boy.setChecked(true);
@@ -206,24 +213,35 @@ public class loginActivity extends Activity {
             }
         });
         login_btn.setOnClickListener(v -> {
+            //判断手机号与密码格式是否规范
             if (!tool.isPhone(login_phone.getText().toString())) {
                 if (!tool.isPwd(login_pwd.getText().toString())) {
                     noticeMsglogin_phone.setText("手机号码格式错误！");
                     noticeMsglogin_pwd.setText("请保证密码为6~15位的数字和字母组成！");
+                    noticeMsglogin_pwd_verify.setText("");
                 } else {
                     noticeMsglogin_phone.setText("手机号码格式错误！");
                     noticeMsglogin_pwd.setText("");
+                    noticeMsglogin_pwd_verify.setText("");
                 }
             } else {
                 if (!tool.isPwd(login_pwd.getText().toString())) {
                     noticeMsglogin_phone.setText("");
                     noticeMsglogin_pwd.setText("请保证密码为6~15位的数字和字母组成！");
+                    noticeMsglogin_pwd_verify.setText("");
                 } else {
-                    noticeMsglogin_phone.setText("");
-                    noticeMsglogin_pwd.setText("");
-                    //发送验证码并验证
-                    SMSSDK.submitVerificationCode("86",login_phone.getText().toString()
-                            ,yanzheng_code.getText().toString());
+                    if (!login_pwd.getText().toString().equals(login_pwd_verify.getText().toString())) {
+                        noticeMsglogin_phone.setText("");
+                        noticeMsglogin_pwd.setText("");
+                        noticeMsglogin_pwd_verify.setText("两次密码输入不一致，请核对！");
+                    } else {
+                        noticeMsglogin_pwd_verify.setText("");
+                        noticeMsglogin_phone.setText("");
+                        noticeMsglogin_pwd.setText("");
+                        //发送验证码并验证
+                        SMSSDK.submitVerificationCode("86", login_phone.getText().toString()
+                                , yanzheng_code.getText().toString());
+                    }
                 }
             }
         });
@@ -259,6 +277,29 @@ public class loginActivity extends Activity {
                 loadActivity.setSelectionEnd(login_pwd);
             }
         });
+        //设置密码可见性
+        eye3.setOnTouchListener((v, event) -> {
+            if (true) {
+                eye3.setImageResource(R.drawable.eye_open);
+                login_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                eye3.setSelected(false);
+                loadActivity.setSelectionEnd(login_pwd_verify);
+            }
+            return false;
+        });
+        eye3.setOnClickListener(v -> {
+            if (eye3.isSelected()) {
+                eye3.setImageResource(R.drawable.eye_open);
+                login_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                eye3.setSelected(false);
+                loadActivity.setSelectionEnd(login_pwd_verify);
+            } else {
+                eye3.setImageResource(R.drawable.eye_close);
+                login_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
+                eye3.setSelected(true);
+                loadActivity.setSelectionEnd(login_pwd_verify);
+            }
+        });
     }
 
     private void initListener() {
@@ -267,6 +308,7 @@ public class loginActivity extends Activity {
         login_pwd.addTextChangedListener(textChanger);
         yanzheng_code.addTextChangedListener(textChanger);
         login_name.addTextChangedListener(textChanger);
+        login_pwd_verify.addTextChangedListener(textChanger);
 
     }
 
@@ -281,6 +323,7 @@ public class loginActivity extends Activity {
             text_girl.setEnabled(true);
         }
     }
+
     //在完成短信验证之后，需要销毁回调监听接口。
     @Override
     protected void onDestroy() {
@@ -324,7 +367,7 @@ public class loginActivity extends Activity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            int ph = login_phone.length(), pw = login_pwd.length(), code = yanzheng_code.length(), pn = login_name.length();
+            int ph = login_phone.length(), pw = login_pwd.length(), code = yanzheng_code.length(), pn = login_name.length(), pw_v = login_pwd_verify.length();
             if (ph == 0) {
                 cha5.setVisibility(View.INVISIBLE);
             } else {
@@ -345,11 +388,13 @@ public class loginActivity extends Activity {
             } else {
                 cha7.setVisibility(View.VISIBLE);
             }
-            if (ph == 0 || pw < 6 || pw > 15 || code == 0 || pn == 0) {
-                login_btn.setEnabled(false);
+            if (pw_v == 0) {
+                eye3.setVisibility(View.INVISIBLE);
             } else {
-                login_btn.setEnabled(true);
+                eye3.setVisibility(View.VISIBLE);
             }
+            //设置按钮的可点击性
+            login_btn.setEnabled(ph != 0 && pw >= 6 && pw <= 15 && code != 0 && pn != 0 && pw_v != 0);
         }
     }
 }

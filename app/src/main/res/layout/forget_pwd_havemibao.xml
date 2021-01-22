@@ -140,7 +140,6 @@
         android:gravity="center"
         android:visibility="gone"
         android:orientation="vertical">
-
         <EditText
             android:id="@+id/forget_pwd"
             android:layout_width="300dp"
@@ -173,10 +172,49 @@
             android:layout_below="@id/forget_pwd"
             />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layout_pwd_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/forget_pwd_verify"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext2"
+            android:hint="请确认密码:"
+            android:inputType="textPassword"
+            android:textColorHint="#CFCCCC"
+            android:textSize="15dp" />
+        <ImageView
+            android:id="@+id/eye4"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="10dp"
+            android:src="@drawable/eye_close"
+            android:layout_alignEnd="@id/forget_pwd_verify"
+            android:layout_alignBottom="@id/forget_pwd_verify"
+            android:visibility="invisible"
+            />
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeMsg5"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:textColor="#FF0000"
+            android:textSize="12sp"
+            android:layout_below="@id/forget_pwd_verify"
+            />
+    </RelativeLayout>
     <Button
         android:id="@+id/forget_btn"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
+        android:layout_width="85dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:background="@drawable/select_load_bt"

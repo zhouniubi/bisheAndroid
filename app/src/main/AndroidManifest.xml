@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/notitle">
-        <activity android:name=".bishe.activity.loginActivity"/>
+        <activity android:name=".bishe.activity.forgetPwdActivity2"></activity>
+        <activity android:name=".bishe.activity.loginActivity" />
         <!--
          <meta-data
             android:name="com.google.android.actions"
@@ -26,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".bishe.activity.forgetPwdActivity" />
+        <activity android:name=".bishe.activity.forgetPwdActivity1" />
     </application>
 
 </manifest>

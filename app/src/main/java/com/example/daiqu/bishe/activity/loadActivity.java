@@ -3,6 +3,7 @@ package com.example.daiqu.bishe.activity;
 import androidx.annotation.NonNull;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,11 +30,11 @@ import java.util.regex.Pattern;
 public class loadActivity extends Activity {
 
     private EditText phone_input, pwd_input;
-    private TextView notice,forget_pwd,login;
+    private TextView notice, load_forget, load_login,load_introduce;
     private ImageView cha, eye;
     private Button load_button;
     private String phone = "", pwd = "";
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +49,13 @@ public class loadActivity extends Activity {
         notice = findViewById(R.id.noticeMsg);
         cha = findViewById(R.id.cha1);
         eye = findViewById(R.id.eye);
-        forget_pwd = findViewById(R.id.login_forget);
-        login = findViewById(R.id.load_login);
+        load_forget = findViewById(R.id.load_forget);
+        load_login = findViewById(R.id.load_login);
+        load_introduce = findViewById(R.id.load_introduce);
         //设置只能输入数字
         phone_input.setInputType(InputType.TYPE_CLASS_NUMBER);
         load_button.setEnabled(false);
         initListener();
-
         //登录操作
         load_button.setOnClickListener(v -> {
             HashMap<String, String> dataMap = new HashMap<>();
@@ -87,15 +88,41 @@ public class loadActivity extends Activity {
             }).start();
 
         });
-        //跳转修改密码界面
-        forget_pwd.setOnClickListener(v -> {
-            Intent intent = new Intent(loadActivity.this, forgetPwdActivity.class);
-            startActivity(intent);
+        //跳转忘记密码界面（先弹出dialog选择验证方式）
+        load_forget.setOnClickListener(v -> {
+            Dialog dialog = new Dialog(this,R.style.introduce_dialog);
+            dialog.setContentView(R.layout.forget_choose_way);
+            dialog.show();
+            dialog.getWindow().findViewById(R.id.have_mibao).setOnClickListener(v1 -> {
+                dialog.cancel();
+                Intent intent = new Intent(loadActivity.this, forgetPwdActivity1.class);
+                startActivity(intent);
+            });
+            dialog.getWindow().findViewById(R.id.no_mibao).setOnClickListener(v1 -> {
+                Intent intent = new Intent(loadActivity.this, forgetPwdActivity2.class);
+                startActivity(intent);
+                dialog.cancel();
+
+            });
+            dialog.getWindow().findViewById(R.id.layout_mibao_choose).setOnClickListener(v1 -> {
+                dialog.cancel();
+            });
+
         });
         //跳转注册界面
-        login.setOnClickListener(v -> {
+        load_login.setOnClickListener(v -> {
             Intent intent = new Intent(loadActivity.this, loginActivity.class);
             startActivity(intent);
+        });
+        //弹出介绍对话框
+        load_introduce.setOnClickListener(v -> {
+            Dialog dialog = new Dialog(this,R.style.introduce_dialog);
+            dialog.setContentView(R.layout.dialog_introduce);
+            dialog.getWindow().findViewById(R.id.layout_introduce).setOnClickListener(v1 -> {
+                dialog.cancel();
+            });
+            dialog.show();
+
         });
         //一键手机号置空
         cha.setOnClickListener(v -> {

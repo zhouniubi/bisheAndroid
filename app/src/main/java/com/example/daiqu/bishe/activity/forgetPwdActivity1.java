@@ -31,19 +31,19 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 
-public class forgetPwdActivity extends Activity {
-    private EditText forget_phone, forget_pwd, mibao1, mibao2;
-    private RelativeLayout layout_mibao1, layout_mibao2, layout_pwd;
+public class forgetPwdActivity1 extends Activity {
+    private EditText forget_phone, forget_pwd, mibao1, mibao2,forget_pwd_verify;
+    private RelativeLayout layout_mibao1, layout_mibao2, layout_pwd,layout_pwd_verify;
     private Button  forget_btn;
-    private ImageView cha2, eye1, cha3, cha4, search_mibao_img;
-    private TextView noticeMsg1,noticeMsg2;
+    private ImageView cha2, eye1, cha3, cha4, search_mibao_img,eye4;
+    private TextView noticeMsg1,noticeMsg2,noticeMsg5;
     private final MyHandler myHandler = new MyHandler(this);
 
     //定义内部类的handler解决警报问题（关于潜在的内存泄漏问题）
     private static class MyHandler extends Handler {
-        private final WeakReference<forgetPwdActivity> mActivity;
+        private final WeakReference<forgetPwdActivity1> mActivity;
 
-        public MyHandler(forgetPwdActivity activity) {
+        public MyHandler(forgetPwdActivity1 activity) {
             mActivity = new WeakReference<>(activity);
         }
 
@@ -54,7 +54,7 @@ public class forgetPwdActivity extends Activity {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            forgetPwdActivity myActivity = mActivity.get();
+            forgetPwdActivity1 myActivity = mActivity.get();
 
             if(msg.what==1){
                 List<String> list = (List<String>) msg.obj;
@@ -67,6 +67,7 @@ public class forgetPwdActivity extends Activity {
                         myActivity.layout_pwd.setVisibility(View.GONE);
                         myActivity.layout_mibao1.setVisibility(View.GONE);
                         myActivity.layout_mibao2.setVisibility(View.GONE);
+                        myActivity.layout_pwd_verify.setVisibility(View.GONE);
                         myActivity.forget_btn.setVisibility(View.GONE);
                         break;
                     case "200":
@@ -75,6 +76,7 @@ public class forgetPwdActivity extends Activity {
                         myActivity.layout_pwd.setVisibility(View.GONE);
                         myActivity.layout_mibao1.setVisibility(View.GONE);
                         myActivity.layout_mibao2.setVisibility(View.GONE);
+                        myActivity.layout_pwd_verify.setVisibility(View.GONE);
                         myActivity.forget_btn.setVisibility(View.GONE);
                         break;
                     case "220":
@@ -83,6 +85,7 @@ public class forgetPwdActivity extends Activity {
                         myActivity.cha2.setVisibility(View.INVISIBLE);
                         myActivity.search_mibao_img.setVisibility(View.GONE);
                         myActivity.layout_pwd.setVisibility(View.VISIBLE);
+                        myActivity.layout_pwd_verify.setVisibility(View.VISIBLE);
                         myActivity.layout_mibao1.setVisibility(View.VISIBLE);
                         myActivity.mibao1.setHint("(密保1)"+AES.decrypt(list.get(1)));
                         myActivity.layout_mibao2.setVisibility(View.GONE);
@@ -94,6 +97,7 @@ public class forgetPwdActivity extends Activity {
                         myActivity.cha2.setVisibility(View.INVISIBLE);
                         myActivity.search_mibao_img.setVisibility(View.GONE);
                         myActivity.layout_pwd.setVisibility(View.VISIBLE);
+                        myActivity.layout_pwd_verify.setVisibility(View.VISIBLE);
                         myActivity.layout_mibao1.setVisibility(View.GONE);
                         myActivity.layout_mibao2.setVisibility(View.VISIBLE);
                         myActivity.mibao2.setHint("(密保2)："+AES.decrypt(list.get(1)));
@@ -105,6 +109,7 @@ public class forgetPwdActivity extends Activity {
                         myActivity.cha2.setVisibility(View.INVISIBLE);
                         myActivity.search_mibao_img.setVisibility(View.GONE);
                         myActivity.layout_pwd.setVisibility(View.VISIBLE);
+                        myActivity.layout_pwd_verify.setVisibility(View.VISIBLE);
                         myActivity.layout_mibao1.setVisibility(View.VISIBLE);
                         myActivity.mibao1.setHint("(密保1)："+AES.decrypt(body.substring(0,body.indexOf("/"))));
                         myActivity.layout_mibao2.setVisibility(View.VISIBLE);
@@ -143,7 +148,7 @@ public class forgetPwdActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //状态栏文字自适应
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        setContentView(R.layout.forget_pwd);
+        setContentView(R.layout.forget_pwd_havemibao);
         forget_phone = findViewById(R.id.forget_phone);
         forget_pwd = findViewById(R.id.forget_pwd);
         mibao1 = findViewById(R.id.mibao1);
@@ -159,6 +164,10 @@ public class forgetPwdActivity extends Activity {
         forget_btn = findViewById(R.id.forget_btn);
         noticeMsg1 = findViewById(R.id.noticeMsg1);
         noticeMsg2 = findViewById(R.id.noticeMsg2);
+        layout_pwd_verify = findViewById(R.id.layout_pwd_verify);
+        forget_pwd_verify = findViewById(R.id.forget_pwd_verify);
+        eye4 = findViewById(R.id.eye4);
+        noticeMsg5 = findViewById(R.id.noticeMsg5);
         initListener();
         //通过手机号查询是否设置了密保
         search_mibao_img.setEnabled(false);
@@ -186,25 +195,31 @@ public class forgetPwdActivity extends Activity {
         forget_btn.setOnClickListener(v -> {
             if(!tool.isPwd(forget_pwd.getText().toString())){
                 noticeMsg2.setText("注意：密码由6~15位数字字母组合而成！");
-            }else{
-                noticeMsg2.setText("");
-                forget_btn.setEnabled(true);
-                HashMap<String,String> map = new HashMap<>();
-                String phone = AES.encrypt(forget_phone.getText().toString());
-                String answer1 = AES.encrypt(mibao1.getText().toString());
-                String answer2 = AES.encrypt(mibao2.getText().toString());
-                String pwd = AES.encrypt(forget_pwd.getText().toString());
-                map.put("phone",phone);map.put("answer1",answer1);
-                map.put("answer2",answer2);map.put("pwd",pwd);
-                new Thread(() -> {
-                    String state = HttpUtils.sendPostMessage(map,"UTF-8", "updateForgetPwd");
-                    Message msg = new Message();
-                    msg.obj = state;
-                    myHandler.sendMessage(msg);
-                    msg.what = 2;
-                }).start();
+            }else {
+                if (!forget_pwd.getText().toString().equals(forget_pwd_verify.getText().toString())) {
+                    noticeMsg5.setText("两次密码输入不一致，请核对！");
+                } else {
+                    noticeMsg2.setText("");
+                    noticeMsg5.setText("");
+                    forget_btn.setEnabled(true);
+                    HashMap<String, String> map = new HashMap<>();
+                    String phone = AES.encrypt(forget_phone.getText().toString());
+                    String answer1 = AES.encrypt(mibao1.getText().toString());
+                    String answer2 = AES.encrypt(mibao2.getText().toString());
+                    String pwd = AES.encrypt(forget_pwd.getText().toString());
+                    map.put("phone", phone);
+                    map.put("answer1", answer1);
+                    map.put("answer2", answer2);
+                    map.put("pwd", pwd);
+                    new Thread(() -> {
+                        String state = HttpUtils.sendPostMessage(map, "UTF-8", "updateForgetPwd");
+                        Message msg = new Message();
+                        msg.obj = state;
+                        myHandler.sendMessage(msg);
+                        msg.what = 2;
+                    }).start();
+                }
             }
-
         });
         //设置一键清空输入栏
         cha2.setOnClickListener(v -> forget_phone.setText(""));
@@ -233,18 +248,41 @@ public class forgetPwdActivity extends Activity {
                 loadActivity.setSelectionEnd(forget_pwd);
             }
         });
+        //设置密码可见性
+        eye4.setOnTouchListener((v, event) -> {
+            if (true) {
+                eye4.setImageResource(R.drawable.eye_open);
+                forget_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                eye4.setSelected(false);
+                loadActivity.setSelectionEnd(forget_pwd_verify);
+            }
+            return false;
+        });
+        eye4.setOnClickListener(v -> {
+            if (eye4.isSelected()) {
+                eye4.setImageResource(R.drawable.eye_open);
+                forget_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                eye4.setSelected(false);
+                loadActivity.setSelectionEnd(forget_pwd_verify);
+            } else {
+                eye4.setImageResource(R.drawable.eye_close);
+                forget_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
+                eye4.setSelected(true);
+                loadActivity.setSelectionEnd(forget_pwd_verify);
+            }
+        });
     }
 
     private void initListener() {
         TextChanger textChanger = new TextChanger();
         forget_phone.addTextChangedListener(textChanger);
         forget_pwd.addTextChangedListener(textChanger);
-
+        forget_pwd_verify.addTextChangedListener(textChanger);
         mibao1.addTextChangedListener(textChanger);
         mibao2.addTextChangedListener(textChanger);
     }
 
-    //重写编辑栏监听部分，实现按钮颜色变换,部分图标的可视化
+    //重写编辑栏监听部分，实现按钮颜色变换,部分图标控件的可视化
     class TextChanger implements TextWatcher {
 
         @Override
@@ -259,7 +297,7 @@ public class forgetPwdActivity extends Activity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            int ph = forget_phone.length(), pw = forget_pwd.length(), mb1 = mibao1.length(), mb2 = mibao2.length();
+            int ph = forget_phone.length(), pw = forget_pwd.length(), mb1 = mibao1.length(), mb2 = mibao2.length(),pw_v = forget_pwd_verify.length();
             if (ph == 0 || !forget_phone.isEnabled()) {
                 cha2.setVisibility(View.INVISIBLE);
                 search_mibao_img.setEnabled(false);
@@ -282,14 +320,13 @@ public class forgetPwdActivity extends Activity {
             } else {
                 cha4.setVisibility(View.VISIBLE);
             }
-            if (ph == 0 || pw< 6|| pw>15 || (mb1 == 0 && mb2 == 0)) {
-                forget_btn.setEnabled(false);
-            } else {
-                forget_btn.setEnabled(true);
+            if(pw_v == 0){
+                eye4.setVisibility(View.INVISIBLE);
+            }else {
+                eye4.setVisibility(View.VISIBLE);
             }
-
-
-
+            //设置按钮的可点击性
+            forget_btn.setEnabled(ph != 0 && pw >= 6 && pw <= 15 && (mb1 != 0 || mb2 != 0) && pw_v != 0);
         }
     }
 
