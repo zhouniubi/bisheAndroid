@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/notitle">
-        <activity android:name=".bishe.activity.forgetPwdActivity2"></activity>
+        <activity android:name=".bishe.activity.startActivity"></activity>
+        <activity android:name=".bishe.activity.forgetPwdActivity2" />
         <activity android:name=".bishe.activity.loginActivity" />
         <!--
          <meta-data

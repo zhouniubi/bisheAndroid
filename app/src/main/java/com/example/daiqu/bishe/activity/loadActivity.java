@@ -71,7 +71,8 @@ public class loadActivity extends Activity {
                     }else{
                         switch (state) {
                             case "111":
-                                notice.setText("登录成功！");
+                                Intent intent = new Intent(loadActivity.this,startActivity.class);
+                                startActivity(intent);
                                 break;
                             case "110":
                                 notice.setText("密码错误！");

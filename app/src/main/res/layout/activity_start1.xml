@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/radiogroup_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/radio_group_background1"
+        >
+
+        <LinearLayout
+            android:id="@+id/task_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/frag_task"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/select_daiqu"
+                android:button="@null"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/text_daiqu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="代取"
+                android:textColor="@drawable/select_text_color2"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/msg_layout"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <RadioButton
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                android:id="@+id/frag_message"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:background="@drawable/select_message"
+                android:button="@null"/>
+            <TextView
+                android:id="@+id/text_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="聊天"
+                android:textColor="@drawable/select_text_color2"
+                android:textSize="15sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/user_layout"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <RadioButton
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                android:id="@+id/frag_user"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:background="@drawable/select_user"
+                android:button="@null"/>
+            <TextView
+                android:id="@+id/text_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个人中心"
+                android:textColor="@drawable/select_text_color2"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </RadioGroup>
+    <View
+        android:id="@+id/div_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_above="@id/radiogroup_bottom"
+        android:background="@color/white"
+        tools:ignore="PxUsage" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/div_tab_bar"
+        />
+
+
+
+</RelativeLayout>
