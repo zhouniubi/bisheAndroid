@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_data">
+        <item>5min</item>
+        <item>10min</item>
+        <item>30min</item>
+        <item>1h</item>
+        <item>5h</item>
+        <item>12h</item>
+    </string-array>
+</resources>

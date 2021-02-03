@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设置只有下边框-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:left="-1dp"
+        android:right="-1dp"
+        android:top="-1dp">
+        <shape>
+            <solid android:color="@color/white" />
+            <!-- 边框的宽度和颜色颜色 -->
+            <!--<stroke
+                android:width="0.5dip"
+                android:color="@color/smssdk_gray" />-->
+        </shape>
+    </item>
+</layer-list>

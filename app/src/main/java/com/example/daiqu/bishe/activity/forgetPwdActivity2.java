@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EdgeEffect;
@@ -116,6 +117,8 @@ public class forgetPwdActivity2 extends Activity {
         super.onCreate(savedInstanceState);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //隐藏标题栏
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         //状态栏文字自适应
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.forget_pwd_nomibao);

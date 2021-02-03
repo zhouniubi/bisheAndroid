@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 边框的宽度和颜色颜色 -->
-    <solid android:color="#0FE3E0E0" />
+    <solid android:color="#40E3E0E0" />
     <stroke
         android:width="1dip"
         android:color="#00BCD4" />

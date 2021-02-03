@@ -49,7 +49,7 @@ public class HttpUtils {
             byte[] myData = buffer.toString().getBytes();
             url = new URL(PATH+TAG);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(6000);
+            connection.setConnectTimeout(3000);
             connection.setDoInput(true);//表示从服务器获取数据
             connection.setDoOutput(true);//表示向服务器写数据
             connection.setRequestMethod("POST");

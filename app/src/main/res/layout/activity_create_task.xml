@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/title_task2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/title2"
+            android:orientation="vertical"
+            tools:context=".bishe.activity.startActivity">
+            <LinearLayout
+                android:id="@+id/layout_wash_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="40dp"
+                android:background="@drawable/select_tasklayout_bg"
+                android:gravity="center"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/wash_task"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:button="@null"
+                    android:background="@drawable/wash" />
+                <TextView
+                    android:id="@+id/wash_text"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:text="洗衣代取"
+                    android:textColor="@drawable/select_text_color3"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_supermarket_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/layout_wash_task"
+                android:background="@drawable/select_tasklayout_bg"
+                android:gravity="center"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/supermarket_task"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:button="@null"
+                    android:background="@drawable/supermarket" />
+                <TextView
+                    android:id="@+id/supermarket_text"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:text="超市代购"
+                    android:textColor="@drawable/select_text_color3"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_waimai_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/layout_supermarket_task"
+                android:background="@drawable/select_tasklayout_bg"
+                android:gravity="center"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/waimai_task"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:button="@null"
+                    android:background="@drawable/waimai" />
+                <TextView
+                    android:id="@+id/waimai_text"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:text="外卖代取"
+                    android:textColor="@drawable/select_text_color3"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_kuaidi_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/layout_waimai_task"
+                android:background="@drawable/select_tasklayout_bg"
+                android:gravity="center"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/kuaidi_task"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:button="@null"
+                    android:background="@drawable/kuaidi3" />
+                <TextView
+                    android:id="@+id/kuaidi_text"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:text="快递代取"
+                    android:textColor="@drawable/select_text_color3"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RadioGroup>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_marginTop="20dp"
+        android:id="@+id/vpager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_task2"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

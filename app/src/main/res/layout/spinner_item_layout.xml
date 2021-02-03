@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sprinner_item_text"
+    android:layout_width="wrap_content"
+    android:layout_height="35dp"
+    android:gravity="center"
+    android:textColorHint="@color/radio_nochoose"
+    android:textSize="15sp"
+    />

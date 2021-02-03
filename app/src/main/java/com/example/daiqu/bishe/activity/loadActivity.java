@@ -13,12 +13,14 @@ import android.text.InputType;
 import android.text.TextWatcher;
 
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.daiqu.R;
+import com.example.daiqu.bishe.service.LinkedTestService;
 import com.example.daiqu.bishe.tool.AES;
 import com.example.daiqu.bishe.tool.HttpUtils;
 import java.lang.ref.WeakReference;
@@ -38,8 +40,12 @@ public class loadActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*Intent intentService = new Intent(this, LinkedTestService.class);
+        startService(intentService);*/
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //隐藏标题栏
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         //状态栏文字自适应
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_load);
@@ -68,6 +74,8 @@ public class loadActivity extends Activity {
                 runOnUiThread(new Thread(() -> {
                     if (!isPhone(phone_input.getText().toString())) {
                         notice.setText("请输入正确的手机号！");
+                        Intent intent = new Intent(loadActivity.this,startActivity.class);
+                        startActivity(intent);
                     }else{
                         switch (state) {
                             case "111":
@@ -154,6 +162,13 @@ public class loadActivity extends Activity {
         });
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+       /* Intent intentService = new Intent(this, LinkedTestService.class);
+        stopService(intentService);*/
     }
 
     //正则表达式判断是不是手机号
