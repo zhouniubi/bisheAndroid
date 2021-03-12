@@ -5,12 +5,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,10 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.daiqu.R;
 import com.example.daiqu.bishe.tool.AES;
+import com.example.daiqu.bishe.tool.ActivityCollector;
 import com.example.daiqu.bishe.tool.HttpUtils;
 import com.example.daiqu.bishe.tool.tool;
 import com.mob.MobSDK;
@@ -132,6 +130,7 @@ public class loginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollector.addActivity(this);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //隐藏标题栏
@@ -333,6 +332,7 @@ public class loginActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
+        ActivityCollector.removeActivity(this);
     }
 
 

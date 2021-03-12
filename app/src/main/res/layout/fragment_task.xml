@@ -75,5 +75,30 @@
             android:layout_height="wrap_content"
             android:text="最近任务："/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Running_task_layout4"
+        android:layout_below="@+id/Running_task_layout3"
+        android:background="@drawable/layout_style2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginEnd="10dp">
+        <TextView
+            android:id="@+id/recentTaskHint"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="暂无任务"/>
 
+        <ListView
+            android:id="@+id/recentTaskList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:scrollbars="none" />
+    </LinearLayout>
 </RelativeLayout>

@@ -24,15 +24,17 @@ import com.example.daiqu.bishe.adapter.MyFragmentPagerAdapter;
 import com.example.daiqu.bishe.fragment.messageFragment;
 import com.example.daiqu.bishe.fragment.taskFragment;
 import com.example.daiqu.bishe.fragment.userFragment;
+import com.example.daiqu.bishe.tool.ActivityCollector;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
 public class startActivity extends FragmentActivity {
-    private LinearLayout task_layout,msg_layout,user_layout;
+    private LinearLayout task_layout, msg_layout, user_layout;
     private RadioGroup radiogroup_bottom;
     private TextView text_daiqu, text_message, text_user;
     private RadioButton frag_task, frag_message, frag_user;
     private ViewPager vpager;
+    public String phone = "";
     private MyFragmentPagerAdapter mAdapter;
     public static final int PAGE_ONE = 0;
     public static final int PAGE_TWO = 1;
@@ -42,10 +44,13 @@ public class startActivity extends FragmentActivity {
     private userFragment userFrag;
     private TextView title_text;
     private ImageView title_add;
+
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollector.addActivity(this);
+        ActivityCollector.removeActivity(loadActivity.ldActivity);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //状态栏文字自适应
@@ -61,6 +66,8 @@ public class startActivity extends FragmentActivity {
         title_text.setText("任务");
         setRadioBtChecked(true, false, false);
         setTextSelected(true, false, false);
+        //传递手机号数据到碎片
+        transPhoneData();
         frag_task.setOnClickListener(v -> {
             vpager.setAdapter(mAdapter);
             vpager.setCurrentItem(0);
@@ -114,6 +121,7 @@ public class startActivity extends FragmentActivity {
                     break;
                 case R.id.frag_user:
                     vpager.setCurrentItem(PAGE_THREE);
+                    break;
             }
         });
         //监听并重写View Page页面切换的处理方法
@@ -153,7 +161,7 @@ public class startActivity extends FragmentActivity {
             }
         });
         title_add.setOnClickListener(v -> {
-            Dialog dialog = new Dialog(this,R.style.add_dialog);
+            Dialog dialog = new Dialog(this, R.style.add_dialog);
             dialog.setContentView(R.layout.add_dialog);
             WindowManager m = getWindowManager();
             Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
@@ -161,15 +169,22 @@ public class startActivity extends FragmentActivity {
             WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
             Point size = new Point();
             d.getSize(size);
-            p.height = (int)(size.y*0.4);
-            p.width  =  (int)(size.x*0.8);
+            p.height = (int) (size.y * 0.4);
+            p.width = (int) (size.x * 0.8);
             dialog.show();
             dialog.getWindow().findViewById(R.id.creat_task).setOnClickListener(v1 -> {
                 dialog.cancel();
-                Intent intent = new Intent(this,createTaskActivity.class);
+                Intent intent = new Intent(this, createTaskActivity.class);
+                intent.putExtra("phone", phone);
                 startActivity(intent);
             });
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.finishAll();
     }
 
     //封装所有的文本的选择状态
@@ -256,16 +271,28 @@ public class startActivity extends FragmentActivity {
             transaction.hide(userFrag);
         }
     }
-    private void setTitleText(int position){
-        if(position==0){
+
+    private void setTitleText(int position) {
+        if (position == 0) {
             title_text.setText("任务");
             title_add.setVisibility(View.VISIBLE);
-        }else if(position==1){
+        } else if (position == 1) {
             title_text.setText("消息");
             title_add.setVisibility(View.GONE);
-        }else{
+        } else {
             title_text.setText("我的");
             title_add.setVisibility(View.GONE);
         }
+    }
+
+    //传递手机号
+    private void transPhoneData() {
+        Intent intentPhone = getIntent();
+        phone = intentPhone.getStringExtra("phone");
+    }
+
+    //获得手机号
+    public String getPhone() {
+        return phone;
     }
 }

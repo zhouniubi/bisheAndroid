@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +22,7 @@ import androidx.annotation.NonNull;
 
 import com.example.daiqu.R;
 import com.example.daiqu.bishe.tool.AES;
+import com.example.daiqu.bishe.tool.ActivityCollector;
 import com.example.daiqu.bishe.tool.HttpUtils;
 import com.example.daiqu.bishe.tool.tool;
 import com.mob.MobSDK;
@@ -115,6 +115,7 @@ public class forgetPwdActivity2 extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollector.addActivity(this);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //隐藏标题栏
@@ -251,6 +252,7 @@ public class forgetPwdActivity2 extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
+        ActivityCollector.removeActivity(this);
     }
     //设置倒计时
     private void countDown(int time) {

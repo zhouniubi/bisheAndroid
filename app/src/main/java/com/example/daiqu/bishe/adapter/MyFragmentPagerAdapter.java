@@ -20,21 +20,12 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private taskFragment myFragment1 = null;
     private messageFragment myFragment2 = null;
     private userFragment myFragment3 = null;
-   /* private washTaskFragment myTaskFragment1 = null;
-    private supermarketTaskFragment myTaskFragment2 = null;
-    private waimaiTaskFragment myTaskFragment3 = null;
-    private kuaidiTaskFragment myTaskFragment4 = null;*/
-
     @SuppressLint("WrongConstant")
     public MyFragmentPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
         myFragment1 = new taskFragment();
         myFragment2 = new messageFragment();
         myFragment3 = new userFragment();
-   /*     myTaskFragment1 = new washTaskFragment();
-        myTaskFragment2 = new supermarketTaskFragment();
-        myTaskFragment3 = new waimaiTaskFragment();
-        myTaskFragment4 = new kuaidiTaskFragment();*/
     }
 
 
@@ -52,18 +43,6 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
             case startActivity.PAGE_THREE:
                 fragment = myFragment3;
                 break;
-          /*  case createTaskActivity.PAGE_ONE:
-                fragment = myTaskFragment1;
-                break;
-            case createTaskActivity.PAGE_TWO:
-                fragment = myTaskFragment2;
-                break;
-            case createTaskActivity.PAGE_THREE:
-                fragment = myTaskFragment3;
-                break;
-            case createTaskActivity.PAGE_FOUR:
-                fragment = myTaskFragment4;
-                break;*/
         }
         return fragment;
     }

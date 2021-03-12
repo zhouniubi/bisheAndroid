@@ -67,7 +67,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:padding="10dp"
-            android:src="@drawable/eye_close"
+            android:src="@drawable/select_eye"
             android:layout_alignEnd="@id/input_pwd"
             android:layout_alignBottom="@id/input_pwd"
             android:visibility="invisible"

@@ -10,4 +10,7 @@
     <color name="radio_choose">#4AB9F3</color>
     <color name="radio_nochoose">#707070</color>
     <color name="task_layout_nochoose">#3F51B5</color>
+    <color name="task_state1">#F44336</color>
+    <color name="task_state2">#FFEB3B</color>
+    <color name="task_state3">#4CAF50</color>
 </resources>

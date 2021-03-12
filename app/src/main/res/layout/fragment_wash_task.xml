@@ -21,6 +21,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:textSize="15sp"
+        android:inputType="number"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/task_name1"
         android:layout_marginTop="15dp"
@@ -38,7 +39,7 @@
         android:layout_alignLeft="@id/task_money1"
         android:text="您希望任务用时："/>
     <Spinner
-        android:id="@+id/time_spinner_checkText"
+        android:id="@+id/time_spinner_checkText1"
         android:layout_below="@id/task_money1"
         android:layout_toRightOf="@+id/time_text1"
         android:layout_marginLeft="5dp"
@@ -78,24 +79,36 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:layout_width="300dp"
+        android:gravity="center"
         android:background="@drawable/edittext2"
         android:layout_height="80dp">
         <ImageView
             android:id="@+id/task_addPicture1"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="75dp"
             android:src="@drawable/add_picture"
+            android:layout_centerHorizontal="true"
             />
         <TextView
-            android:layout_toRightOf="@+id/task_addPicture1"
+            android:id="@+id/text_addImg1"
+            android:layout_toEndOf="@+id/task_addPicture1"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="如有需要点击左侧添加相关图片"
+            android:text="点击添加图片"
             android:textSize="15sp"/>
+        <ImageView
+            android:id="@+id/task_deletePicture1"
+            android:layout_toEndOf="@+id/task_addPicture1"
+            android:padding="1dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cha"
+            android:visibility="gone"
+            />
     </RelativeLayout>
     <EditText
-        android:id="@+id/task_introduce"
+        android:id="@+id/task_introduce1"
         android:layout_width="300dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
@@ -106,11 +119,20 @@
         android:hint="想对送货员说什么就请在这里说吧："
         android:background="@drawable/edittext2"
         />
+    <TextView
+        android:id="@+id/textNum1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/task_introduce1"
+        android:layout_alignEnd="@+id/task_introduce1"
+        android:layout_marginEnd="10dp"
+        android:textSize="12sp"/>
     <Button
-        android:layout_below="@+id/task_introduce"
+        android:id="@+id/task_commit1"
+        android:layout_below="@+id/task_introduce1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="40dp"
         android:text="提交"
         android:textSize="15sp"

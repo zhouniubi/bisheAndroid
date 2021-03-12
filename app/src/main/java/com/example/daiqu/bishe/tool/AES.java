@@ -1,8 +1,8 @@
 package com.example.daiqu.bishe.tool;
 import org.apache.commons.codec.binary.Hex;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -66,7 +66,6 @@ public class AES {
     public static void main(String[] args){
         String testCode ="周牛逼";
         System.out.println(testCode);
-
         String miwen = encrypt(testCode);
         System.out.println(miwen);
         String yuanwen = decrypt(miwen);

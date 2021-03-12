@@ -1,13 +1,28 @@
 package com.example.daiqu.bishe.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.alibaba.fastjson.JSONArray;
 import com.example.daiqu.R;
+import com.example.daiqu.bishe.activity.startActivity;
+import com.example.daiqu.bishe.adapter.RecentTaskListViewAdapter;
+import com.example.daiqu.bishe.data.TaskData;
+import com.example.daiqu.bishe.tool.ActivityCollector;
+import com.example.daiqu.bishe.tool.HttpUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +38,9 @@ public class taskFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ListView listView;
+    private TextView textView;
+    private String phone = "";
 
     public taskFragment() {
         // Required empty public constructor
@@ -53,6 +71,8 @@ public class taskFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        startActivity activity = (startActivity) getActivity();
+        phone = activity.getPhone();
 
     }
 
@@ -60,11 +80,87 @@ public class taskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_task, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_task, container, false);
+        //initWidget(view);
+        return view;
     }
-    private void initWidget(){
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initWidget(getView());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.finishAll();
+    }
+
+    private void initWidget(View view) {
+        textView = view.findViewById(R.id.recentTaskHint);
+        listView = view.findViewById(R.id.recentTaskList);
+        Map<String, String> map = new HashMap<>();
+        map.put("publisherPhone", phone);
+        new Thread(() -> {
+            String data = HttpUtils.sendPostMessage(map, "UTF-8", "findPublisherPhone");
+            //Log.d("DATA是", data);
+            if (data.equals("-999")) {
+                Looper.prepare();
+                Toast.makeText(getContext(), "网络异常", Toast.LENGTH_SHORT).show();
+                if (getPerference().equals("null")) {
+                    getActivity().runOnUiThread(() -> {
+                        textView.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.GONE);
+                    });
+
+                } else {
+                    getActivity().runOnUiThread(() -> {
+                        textView.setVisibility(View.GONE);
+                        listView.setVisibility(View.VISIBLE);
+                        List<TaskData> list = JSONArray.parseArray(getPerference(), TaskData.class);
+                        RecentTaskListViewAdapter adapter = new RecentTaskListViewAdapter(view.getContext(), R.id.recentTaskList, R.layout.list_item_layout1, list);
+                        listView.setAdapter(adapter);
+                        //去掉边缘的拖影
+                        listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+                    });
+                }
+                Looper.loop();
+            } else {
+                if (data.equals("[{\"id\":null,\"taskCode\":null,\"publisherPhone\":null,\"accepterPhone\":null,\"type\":null,\"title\":null,\"getPlace\":null,\"postPlace\":null,\"needTime\":null,\"money\":null,\"infomation\":null,\"state\":null,\"pic\":null,\"time\":null}]")) {
+                    postPreference("null");
+                    getActivity().runOnUiThread(() -> {
+                        textView.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.GONE);
+                    });
+                } else {
+                    getActivity().runOnUiThread(() -> {
+                        textView.setVisibility(View.GONE);
+                        listView.setVisibility(View.VISIBLE);
+                    });
+                    postPreference(data);
+                    List<TaskData> list = JSONArray.parseArray(data, TaskData.class);
+                    getActivity().runOnUiThread((() -> {
+                        RecentTaskListViewAdapter adapter = new RecentTaskListViewAdapter(view.getContext(), R.id.recentTaskList, R.layout.list_item_layout1, list);
+                        listView.setAdapter(adapter);
+                        //去掉边缘的拖影
+                        listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+                    }));
+                }
+            }
+        }).start();
+    }
+
+    private void postPreference(String data) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("recentTask", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("data", data);
+        editor.apply();
+    }
+
+    private String getPerference() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("recentTask", 0);
+        String answer = sharedPreferences.getString("data", "null");
+        return answer;
     }
 }

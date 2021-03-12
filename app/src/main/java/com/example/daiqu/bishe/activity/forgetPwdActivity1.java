@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import com.alibaba.fastjson.JSONArray;
 import com.example.daiqu.R;
 import com.example.daiqu.bishe.tool.AES;
+import com.example.daiqu.bishe.tool.ActivityCollector;
 import com.example.daiqu.bishe.tool.HttpUtils;
 import com.example.daiqu.bishe.tool.tool;
 
@@ -145,6 +146,7 @@ public class forgetPwdActivity1 extends Activity {
     @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollector.addActivity(this);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //隐藏标题栏
@@ -283,6 +285,10 @@ public class forgetPwdActivity1 extends Activity {
         forget_pwd_verify.addTextChangedListener(textChanger);
         mibao1.addTextChangedListener(textChanger);
         mibao2.addTextChangedListener(textChanger);
+    }
+    protected void onDestroy(){
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
     }
 
     //重写编辑栏监听部分，实现按钮颜色变换,部分图标控件的可视化

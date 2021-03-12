@@ -26,6 +26,5 @@
         <!--是否模糊-->
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
-
     </style>
 </resources>
