@@ -103,7 +103,7 @@
             android:layout_alignEnd="@id/login_pwd"
             android:layout_alignBottom="@id/login_pwd"
             android:padding="10dp"
-            android:src="@drawable/eye_close"
+            android:src="@drawable/select_eye"
             android:visibility="invisible" />
 
         <TextView
@@ -142,7 +142,7 @@
             android:layout_alignEnd="@id/login_pwd_verify"
             android:layout_alignBottom="@id/login_pwd_verify"
             android:padding="10dp"
-            android:src="@drawable/eye_close"
+            android:src="@drawable/select_eye"
             android:visibility="invisible" />
 
         <TextView

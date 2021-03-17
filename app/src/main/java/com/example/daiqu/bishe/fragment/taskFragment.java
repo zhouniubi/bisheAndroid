@@ -1,11 +1,14 @@
 package com.example.daiqu.bishe.fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,10 +17,10 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.fastjson.JSONArray;
 import com.example.daiqu.R;
+import com.example.daiqu.bishe.activity.postTaskActivity;
 import com.example.daiqu.bishe.activity.startActivity;
 import com.example.daiqu.bishe.adapter.RecentTaskListViewAdapter;
 import com.example.daiqu.bishe.data.TaskData;
-import com.example.daiqu.bishe.tool.ActivityCollector;
 import com.example.daiqu.bishe.tool.HttpUtils;
 
 import java.util.HashMap;
@@ -40,7 +43,9 @@ public class taskFragment extends Fragment {
     private String mParam2;
     private ListView listView;
     private TextView textView;
-    private String phone = "";
+    private LinearLayout Running_task_layout1;
+    public static String phone = "";
+    //private String data = "";
 
     public taskFragment() {
         // Required empty public constructor
@@ -73,6 +78,8 @@ public class taskFragment extends Fragment {
         }
         startActivity activity = (startActivity) getActivity();
         phone = activity.getPhone();
+        Log.d("Phone是", phone);
+
 
     }
 
@@ -88,23 +95,28 @@ public class taskFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        //Log.d("DATA是", data);
         initWidget(getView());
+        Running_task_layout1.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), postTaskActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ActivityCollector.finishAll();
+        //ActivityCollector.finishAll();
     }
 
     private void initWidget(View view) {
         textView = view.findViewById(R.id.recentTaskHint);
         listView = view.findViewById(R.id.recentTaskList);
+        Running_task_layout1 = view.findViewById(R.id.Running_task_layout1);
         Map<String, String> map = new HashMap<>();
         map.put("publisherPhone", phone);
         new Thread(() -> {
             String data = HttpUtils.sendPostMessage(map, "UTF-8", "findPublisherPhone");
-            //Log.d("DATA是", data);
             if (data.equals("-999")) {
                 Looper.prepare();
                 Toast.makeText(getContext(), "网络异常", Toast.LENGTH_SHORT).show();
@@ -113,21 +125,18 @@ public class taskFragment extends Fragment {
                         textView.setVisibility(View.VISIBLE);
                         listView.setVisibility(View.GONE);
                     });
-
                 } else {
                     getActivity().runOnUiThread(() -> {
                         textView.setVisibility(View.GONE);
                         listView.setVisibility(View.VISIBLE);
-                        List<TaskData> list = JSONArray.parseArray(getPerference(), TaskData.class);
-                        RecentTaskListViewAdapter adapter = new RecentTaskListViewAdapter(view.getContext(), R.id.recentTaskList, R.layout.list_item_layout1, list);
-                        listView.setAdapter(adapter);
+
                         //去掉边缘的拖影
                         listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
                     });
                 }
                 Looper.loop();
             } else {
-                if (data.equals("[{\"id\":null,\"taskCode\":null,\"publisherPhone\":null,\"accepterPhone\":null,\"type\":null,\"title\":null,\"getPlace\":null,\"postPlace\":null,\"needTime\":null,\"money\":null,\"infomation\":null,\"state\":null,\"pic\":null,\"time\":null}]")) {
+                if (data.equals("[{\"id\":null,\"taskCode\":null,\"publisherPhone\":null,\"accepterPhone\":null,\"type\":null,\"title\":null,\"getPlace\":null,\"postPlace\":null,\"needTime\":null,\"money\":null,\"infomation\":null,\"state\":null,\"pic\":null,\"time\":null,\"time2\":null}]")) {
                     postPreference("null");
                     getActivity().runOnUiThread(() -> {
                         textView.setVisibility(View.VISIBLE);

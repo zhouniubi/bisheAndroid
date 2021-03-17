@@ -26,20 +26,11 @@ import okhttp3.Response;
 import static com.mob.MobSDK.getContext;
 
 public class HttpUtils {
-    private static String PATH = "http://192.168.0.103:8080/";
+    private static String PATH = "http://10.16.66.2:8080/";
     private static URL url;
 
     public HttpUtils() {
     }
-//    static{
-//        try {
-//            url = new URL(PATH);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
     /**
      * @param params 填写的url的参数
      * @param encode 字节编码

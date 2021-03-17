@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -231,7 +232,7 @@ public class forgetPwdActivity1 extends Activity {
         cha3.setOnClickListener(v -> mibao1.setText(""));
         cha4.setOnClickListener(v -> mibao2.setText(""));
         //设置密码可见性
-        eye1.setOnTouchListener((v, event) -> {
+        /*eye1.setOnTouchListener((v, event) -> {
             if (true) {
                 eye1.setImageResource(R.drawable.eye_open);
                 forget_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -239,22 +240,22 @@ public class forgetPwdActivity1 extends Activity {
                 loadActivity.setSelectionEnd(forget_pwd);
             }
             return false;
-        });
+        });*/
         eye1.setOnClickListener(v -> {
-            if (eye1.isSelected()) {
-                eye1.setImageResource(R.drawable.eye_open);
-                forget_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eye1.setSelected(false);
+            if (!eye1.isSelected()) {
+                //eye1.setImageResource(R.drawable.eye_open);
+                eye1.setSelected(true);
+                forget_pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(forget_pwd);
             } else {
-                eye1.setImageResource(R.drawable.eye_close);
-                forget_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
-                eye1.setSelected(true);
+                //eye1.setImageResource(R.drawable.eye_close);
+                eye1.setSelected(false);
+                forget_pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(forget_pwd);
             }
         });
         //设置密码可见性
-        eye4.setOnTouchListener((v, event) -> {
+       /* eye4.setOnTouchListener((v, event) -> {
             if (true) {
                 eye4.setImageResource(R.drawable.eye_open);
                 forget_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -262,17 +263,17 @@ public class forgetPwdActivity1 extends Activity {
                 loadActivity.setSelectionEnd(forget_pwd_verify);
             }
             return false;
-        });
+        });*/
         eye4.setOnClickListener(v -> {
-            if (eye4.isSelected()) {
+            if (!eye4.isSelected()) {
                 eye4.setImageResource(R.drawable.eye_open);
-                forget_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eye4.setSelected(false);
+                forget_pwd_verify.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                eye4.setSelected(true);
                 loadActivity.setSelectionEnd(forget_pwd_verify);
             } else {
                 eye4.setImageResource(R.drawable.eye_close);
-                forget_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
-                eye4.setSelected(true);
+                forget_pwd_verify.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                eye4.setSelected(false);
                 loadActivity.setSelectionEnd(forget_pwd_verify);
             }
         });

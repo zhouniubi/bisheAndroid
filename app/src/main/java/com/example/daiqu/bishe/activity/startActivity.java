@@ -44,6 +44,7 @@ public class startActivity extends FragmentActivity {
     private userFragment userFrag;
     private TextView title_text;
     private ImageView title_add;
+    private String data = "";
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -62,12 +63,14 @@ public class startActivity extends FragmentActivity {
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         initwidget();
         vpager.setAdapter(mAdapter);
+        vpager.setOffscreenPageLimit(2);
         vpager.setCurrentItem(0);
         title_text.setText("任务");
         setRadioBtChecked(true, false, false);
         setTextSelected(true, false, false);
         //传递手机号数据到碎片
         transPhoneData();
+        //sendData();
         frag_task.setOnClickListener(v -> {
             vpager.setAdapter(mAdapter);
             vpager.setCurrentItem(0);
@@ -179,6 +182,7 @@ public class startActivity extends FragmentActivity {
                 startActivity(intent);
             });
         });
+
     }
 
     @Override
@@ -295,4 +299,21 @@ public class startActivity extends FragmentActivity {
     public String getPhone() {
         return phone;
     }
+    //获得数据
+    public String getData() {
+        return data;
+    }
+ /*   private void sendData(){
+        new Thread(() -> {
+            Map<String, String> map = new HashMap<>();
+            map.put("publisherPhone", phone);
+            data = HttpUtils.sendPostMessage(map, "UTF-8", "findPublisherPhone");
+            //Log.d("Data是", data);
+            //传递数据
+            Bundle bundle = new Bundle();
+            bundle.putString("data", data);
+            taskFragment fragment =(taskFragment) mAdapter.getItem(0);
+            fragment.setArguments(bundle);
+        }).start();
+    }*/
 }

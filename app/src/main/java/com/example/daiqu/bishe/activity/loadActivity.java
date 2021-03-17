@@ -11,6 +11,8 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -39,7 +41,6 @@ public class loadActivity extends Activity {
     private TextView notice, load_forget, load_login, load_introduce;
     private ImageView cha, eye;
     private Button load_button;
-    private boolean showPwd = false;
     private String phone = "", pwd = "";
     @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
@@ -93,8 +94,6 @@ public class loadActivity extends Activity {
 
                         if (!isPhone(phone_input.getText().toString())) {
                             notice.setText("请输入正确的手机号！");
-                            Intent intent = new Intent(loadActivity.this, startActivity.class);
-                            startActivity(intent);
                         } else {
                             switch (state) {
                                 case "111":
@@ -162,29 +161,15 @@ public class loadActivity extends Activity {
                 phone_input.setText("");
             });
             //设置密码可见性
-           /* eye.setOnTouchListener((v, event) -> {
-                if (true) {
-                    eye.setImageResource(R.drawable.eye_open);
-                    pwd_input.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    eye.setSelected(false);
-                    setSelectionEnd(pwd_input);
-                }
-                return false;
-            });*/
             eye.setOnClickListener(v -> {
                 if (!eye.isSelected()) {
-                    //eye.setImageResource(R.drawable.eye_open);
-                    pwd_input.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    /*eye.setFocusableInTouchMode(false);*/
+                    pwd_input.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     setSelectionEnd(pwd_input);
                     eye.setSelected(true);
                 } else {
-                    //eye.setImageResource(R.drawable.eye_close);
-                    pwd_input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
-                    /*eye.setFocusableInTouchMode(true);*/
+                    pwd_input.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     setSelectionEnd(pwd_input);
                     eye.setSelected(false);
-
                 }
             });
 

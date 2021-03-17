@@ -7,8 +7,9 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -258,7 +259,7 @@ public class loginActivity extends Activity {
             yanzheng_code.setText("");
         });
         //设置密码可见性
-        eye2.setOnTouchListener((v, event) -> {
+        /*eye2.setOnTouchListener((v, event) -> {
             if (true) {
                 eye2.setImageResource(R.drawable.eye_open);
                 login_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -266,22 +267,22 @@ public class loginActivity extends Activity {
                 loadActivity.setSelectionEnd(login_pwd);
             }
             return false;
-        });
+        });*/
         eye2.setOnClickListener(v -> {
-            if (eye2.isSelected()) {
-                eye2.setImageResource(R.drawable.eye_open);
-                login_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eye2.setSelected(false);
+            if (!eye2.isSelected()) {
+                //eye2.setImageResource(R.drawable.eye_open);
+                eye2.setSelected(true);
+                login_pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(login_pwd);
             } else {
-                eye2.setImageResource(R.drawable.eye_close);
-                login_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
-                eye2.setSelected(true);
+                //eye2.setImageResource(R.drawable.eye_close);
+                eye2.setSelected(false);
+                login_pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(login_pwd);
             }
         });
         //设置密码可见性
-        eye3.setOnTouchListener((v, event) -> {
+     /*   eye3.setOnTouchListener((v, event) -> {
             if (true) {
                 eye3.setImageResource(R.drawable.eye_open);
                 login_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -289,17 +290,17 @@ public class loginActivity extends Activity {
                 loadActivity.setSelectionEnd(login_pwd_verify);
             }
             return false;
-        });
+        });*/
         eye3.setOnClickListener(v -> {
-            if (eye3.isSelected()) {
-                eye3.setImageResource(R.drawable.eye_open);
-                login_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eye3.setSelected(false);
+            if (!eye3.isSelected()) {
+                //eye3.setImageResource(R.drawable.eye_open);
+                eye3.setSelected(true);
+                login_pwd_verify.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(login_pwd_verify);
             } else {
-                eye3.setImageResource(R.drawable.eye_close);
-                login_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
-                eye3.setSelected(true);
+                //eye3.setImageResource(R.drawable.eye_close);
+                eye3.setSelected(false);
+                login_pwd_verify.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(login_pwd_verify);
             }
         });
@@ -386,6 +387,7 @@ public class loginActivity extends Activity {
                 eye2.setVisibility(View.INVISIBLE);
             } else {
                 eye2.setVisibility(View.VISIBLE);
+                eye2.requestFocus();
             }
             if (code == 0) {
                 cha7.setVisibility(View.INVISIBLE);
@@ -396,6 +398,7 @@ public class loginActivity extends Activity {
                 eye3.setVisibility(View.INVISIBLE);
             } else {
                 eye3.setVisibility(View.VISIBLE);
+                eye3.requestFocus();
             }
             //设置按钮的可点击性
             login_btn.setEnabled(ph != 0 && pw >= 6 && pw <= 15 && code != 0 && pn != 0 && pw_v != 0);

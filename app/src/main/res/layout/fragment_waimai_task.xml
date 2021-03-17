@@ -58,7 +58,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/time_text3"
         android:layout_marginTop="15dp"
-        android:hint="购物地点："
+        android:hint="外卖领取地点："
         android:background="@drawable/edittext2"
         />
     <EditText
@@ -70,7 +70,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/task_getplace3"
         android:layout_marginTop="15dp"
-        android:hint="送达地点："
+        android:hint="外卖送达地点："
         android:background="@drawable/edittext2"
         />
     <RelativeLayout

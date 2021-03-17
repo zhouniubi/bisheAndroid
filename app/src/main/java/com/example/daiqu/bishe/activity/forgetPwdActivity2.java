@@ -7,8 +7,9 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -192,7 +193,7 @@ public class forgetPwdActivity2 extends Activity {
             yanzheng_code_forget.setText("");
         });
         //设置密码可见性
-        eye5.setOnTouchListener((v, event) -> {
+       /* eye5.setOnTouchListener((v, event) -> {
             if (true) {
                 eye5.setImageResource(R.drawable.eye_open);
                 login_pwd_forget.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -200,22 +201,22 @@ public class forgetPwdActivity2 extends Activity {
                 loadActivity.setSelectionEnd(login_pwd_forget);
             }
             return false;
-        });
+        });*/
         eye5.setOnClickListener(v -> {
-            if (eye5.isSelected()) {
-                eye5.setImageResource(R.drawable.eye_open);
-                login_pwd_forget.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eye5.setSelected(false);
+            if (!eye5.isSelected()) {
+                //eye5.setImageResource(R.drawable.eye_open);
+                eye5.setSelected(true);
+                login_pwd_forget.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(login_pwd_forget);
             } else {
-                eye5.setImageResource(R.drawable.eye_close);
-                login_pwd_forget.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
-                eye5.setSelected(true);
+                //eye5.setImageResource(R.drawable.eye_close);
+                eye5.setSelected(false);
+                login_pwd_forget.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(login_pwd_forget);
             }
         });
         //设置密码可见性
-        eye6.setOnTouchListener((v, event) -> {
+       /* eye6.setOnTouchListener((v, event) -> {
             if (true) {
                 eye6.setImageResource(R.drawable.eye_open);
                 login_pwd_verify_forget.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -223,21 +224,18 @@ public class forgetPwdActivity2 extends Activity {
                 loadActivity.setSelectionEnd(login_pwd_verify_forget);
             }
             return false;
-        });
+        });*/
         eye6.setOnClickListener(v -> {
-            if (eye6.isSelected()) {
-                eye6.setImageResource(R.drawable.eye_open);
-                login_pwd_verify_forget.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eye6.setSelected(false);
+            if (!eye6.isSelected()) {
+                eye6.setSelected(true);
+                login_pwd_verify_forget.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(login_pwd_verify_forget);
             } else {
-                eye6.setImageResource(R.drawable.eye_close);
-                login_pwd_verify_forget.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
-                eye6.setSelected(true);
+                eye6.setSelected(false);
+                login_pwd_verify_forget.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 loadActivity.setSelectionEnd(login_pwd_verify_forget);
             }
         });
-
     }
     private void initListener() {
         TextChanger textChanger = new TextChanger();
@@ -298,6 +296,7 @@ public class forgetPwdActivity2 extends Activity {
                 eye5.setVisibility(View.INVISIBLE);
             } else {
                 eye5.setVisibility(View.VISIBLE);
+                eye5.requestFocus();
             }
             if (code == 0) {
                 cha8.setVisibility(View.INVISIBLE);
@@ -308,6 +307,7 @@ public class forgetPwdActivity2 extends Activity {
                 eye6.setVisibility(View.INVISIBLE);
             } else {
                 eye6.setVisibility(View.VISIBLE);
+                eye6.requestFocus();
             }
             //设置按钮的可点击性
             login_btn_forget.setEnabled(ph != 0 && pw >= 6 && pw <= 15 && code != 0 && pw_v != 0);

@@ -63,7 +63,7 @@ public class RecentTaskListViewAdapter extends ArrayAdapter<TaskData> {
                 break;
             case "3":
                 item_pic1.setImageResource(R.drawable.kuaidi3);
-                item_name1.setText("外卖");
+                item_name1.setText("快递");
                 break;
             default:
                 break;

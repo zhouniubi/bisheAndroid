@@ -2,7 +2,9 @@ package com.example.daiqu.bishe.data;
 
 import java.io.File;
 
-public class TaskData {
+public class TaskDataWithName {
+    private String publisherName;
+    private String accpterName;
     private Integer id;
     private String taskCode;
     private String publisherPhone;
@@ -19,16 +21,21 @@ public class TaskData {
     private File file;
     private String time;
     private String time2;
-
-    public String getTime2() {
-        return time2;
-    }
-    public void setTime2(String time2) {
-        this.time2 = time2;
+    public String getPublisherName() {
+        return publisherName;
     }
 
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
+    }
 
+    public String getAccpterName() {
+        return accpterName;
+    }
 
+    public void setAccpterName(String accpterName) {
+        this.accpterName = accpterName;
+    }
 
     public Integer getId() {
         return id;
@@ -37,21 +44,6 @@ public class TaskData {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
-    public TaskData(){
-
-    }
-    public TaskData(String title,String state,String type,String getPlace,String postPlace,String time){
-        this.title = title;
-        this.state = state;
-        this.type = type;
-        this.getPlace = getPlace;
-        this.postPlace = postPlace;
-        this.time = time;
-    }
-
-
 
     public String getTaskCode() {
         return taskCode;
@@ -163,6 +155,14 @@ public class TaskData {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getTime2() {
+        return time2;
+    }
+
+    public void setTime2(String time2) {
+        this.time2 = time2;
     }
 
 
