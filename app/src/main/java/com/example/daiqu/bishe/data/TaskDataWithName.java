@@ -1,10 +1,11 @@
 package com.example.daiqu.bishe.data;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class TaskDataWithName {
+public class TaskDataWithName implements Serializable {
     private String publisherName;
-    private String accpterName;
+    private String accepterName;
     private Integer id;
     private String taskCode;
     private String publisherPhone;
@@ -21,6 +22,8 @@ public class TaskDataWithName {
     private File file;
     private String time;
     private String time2;
+    public TaskDataWithName(){
+    }
     public String getPublisherName() {
         return publisherName;
     }
@@ -29,12 +32,12 @@ public class TaskDataWithName {
         this.publisherName = publisherName;
     }
 
-    public String getAccpterName() {
-        return accpterName;
+    public String getAccepterName() {
+        return accepterName;
     }
 
-    public void setAccpterName(String accpterName) {
-        this.accpterName = accpterName;
+    public void setAccepterName(String accepterName) {
+        this.accepterName = accepterName;
     }
 
     public Integer getId() {
@@ -164,6 +167,5 @@ public class TaskDataWithName {
     public void setTime2(String time2) {
         this.time2 = time2;
     }
-
 
 }

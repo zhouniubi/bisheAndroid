@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Daiqu">
-        <activity android:name=".bishe.activity.postTaskActivity"></activity>
+        <activity android:name=".bishe.activity.showTaskInformation"></activity>
+        <activity android:name=".bishe.activity.postTaskActivity" />
         <activity android:name=".bishe.activity.createTaskActivity" /> <!-- android:theme="@style/notitle" -->
         <service
             android:name=".bishe.service.LinkedTestService"

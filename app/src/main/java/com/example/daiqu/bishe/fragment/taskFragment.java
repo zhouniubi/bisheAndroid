@@ -129,7 +129,9 @@ public class taskFragment extends Fragment {
                     getActivity().runOnUiThread(() -> {
                         textView.setVisibility(View.GONE);
                         listView.setVisibility(View.VISIBLE);
-
+                        List<TaskData> list = JSONArray.parseArray(getPerference(), TaskData.class);
+                        RecentTaskListViewAdapter adapter = new RecentTaskListViewAdapter(view.getContext(), R.id.recentTaskList, R.layout.list_item_layout1, list);
+                        listView.setAdapter(adapter);
                         //去掉边缘的拖影
                         listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
                     });

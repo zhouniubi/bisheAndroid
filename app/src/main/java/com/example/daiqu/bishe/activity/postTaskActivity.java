@@ -1,6 +1,7 @@
 package com.example.daiqu.bishe.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
@@ -71,6 +72,9 @@ public class postTaskActivity extends Activity {
                         textView.setVisibility(View.GONE);
                         postTaskList.setVisibility(View.VISIBLE);
                         //去掉边缘的拖影
+                        List<TaskDataWithName> list = JSONArray.parseArray(getPerference(), TaskDataWithName.class);
+                        PostTaskListViewAdapter adapter = new PostTaskListViewAdapter(this, R.id.postTaskList, R.layout.list_item_layout2, list);
+                        postTaskList.setAdapter(adapter);
                         postTaskList.setOverScrollMode(View.OVER_SCROLL_NEVER);
                     });
                 }
@@ -107,6 +111,13 @@ public class postTaskActivity extends Activity {
                 //去掉边缘的拖影
                 postTaskList.setOverScrollMode(View.OVER_SCROLL_NEVER);
             }));
+        });
+        postTaskList.setOnItemClickListener((parent, view, position, id) -> {
+            TaskDataWithName taskData = list.get(position);
+            Intent intent = new Intent(postTaskActivity.this,showTaskInformation.class);
+            intent.putExtra("taskData", taskData);
+            Log.d("taskData", taskData.getTitle());
+            startActivity(intent);
         });
     }
     private void postPreference(String data) {

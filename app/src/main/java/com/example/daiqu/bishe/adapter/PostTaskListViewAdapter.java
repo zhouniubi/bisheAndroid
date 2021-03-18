@@ -81,8 +81,8 @@ public class PostTaskListViewAdapter extends ArrayAdapter<TaskDataWithName> {
         }
         item_getPlace2.setText("接取地址：" + taskDataWithName.getGetPlace());
         item_postPlace2.setText("配送地址：" + taskDataWithName.getPostPlace());
-        if (!taskDataWithName.getAccpterName().equals("null")) {
-            item_poster.setText("派送者：" + AES.decrypt(taskDataWithName.getPublisherName()));
+        if (!taskDataWithName.getAccepterName().equals("null")) {
+            item_poster.setText("派送者：" + AES.decrypt(taskDataWithName.getAccepterName()));
         }else{
             item_poster.setText("派送者：" + "暂无");
         }
