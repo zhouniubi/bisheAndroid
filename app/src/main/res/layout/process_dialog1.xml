@@ -11,12 +11,14 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:src="@drawable/process1" />
+
     <TextView
+        android:id="@+id/processText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:hint="正在上传"
+
         android:textSize="12sp" />
 
 </LinearLayout>

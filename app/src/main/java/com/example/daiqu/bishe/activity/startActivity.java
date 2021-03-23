@@ -16,7 +16,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.daiqu.R;
@@ -51,7 +50,9 @@ public class startActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityCollector.addActivity(this);
-        ActivityCollector.removeActivity(loadActivity.ldActivity);
+        if(ActivityCollector.activityList.contains(loadActivity.ldActivity)){
+            ActivityCollector.removeActivity(loadActivity.ldActivity);
+        }
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //状态栏文字自适应
@@ -70,6 +71,7 @@ public class startActivity extends FragmentActivity {
         setTextSelected(true, false, false);
         //传递手机号数据到碎片
         transPhoneData();
+
         //sendData();
         frag_task.setOnClickListener(v -> {
             vpager.setAdapter(mAdapter);
@@ -185,10 +187,16 @@ public class startActivity extends FragmentActivity {
 
     }
 
+    /*@Override
+    protected void onStart() {
+        super.onStart();
+        transPhoneData();
+    }*/
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityCollector.finishAll();
+       /* ActivityCollector.finishAll();*/
     }
 
     //封装所有的文本的选择状态
@@ -223,59 +231,6 @@ public class startActivity extends FragmentActivity {
         msg_layout = findViewById(R.id.msg_layout);
         user_layout = findViewById(R.id.user_layout);
     }
-
-    //显示taskFragment
-    private void showTaskFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (taskFrag == null) {
-            taskFrag = new taskFragment();
-            transaction.add(R.id.vpager, taskFrag);
-        }
-        //hideFragment(transaction);
-        transaction.show(taskFrag);
-        transaction.commit();
-
-    }
-
-    //显示messageFragment
-    private void showMsgFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (msgFrag == null) {
-            msgFrag = new messageFragment();
-            transaction.add(R.id.vpager, msgFrag);
-        }
-        hideFragment(transaction);
-        transaction.show(msgFrag);
-        transaction.commit();
-
-    }
-
-    //显示userFragment
-    private void showUserFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (userFrag == null) {
-            userFrag = new userFragment();
-            transaction.add(R.id.vpager, userFrag);
-        }
-        hideFragment(transaction);
-        transaction.show(userFrag);
-        transaction.commit();
-
-    }
-
-    //隐藏所有的fragment
-    private void hideFragment(FragmentTransaction transaction) {
-        if (taskFrag != null) {
-            transaction.hide(taskFrag);
-        }
-        if (msgFrag != null) {
-            transaction.hide(msgFrag);
-        }
-        if (userFrag != null) {
-            transaction.hide(userFrag);
-        }
-    }
-
     private void setTitleText(int position) {
         if (position == 0) {
             title_text.setText("任务");
@@ -293,6 +248,11 @@ public class startActivity extends FragmentActivity {
     private void transPhoneData() {
         Intent intentPhone = getIntent();
         phone = intentPhone.getStringExtra("phone");
+        /*if(!phone.equals("")){
+            postPreference(phone);
+        }else{
+            phone = getPerference();
+        }*/
     }
 
     //获得手机号
@@ -303,17 +263,16 @@ public class startActivity extends FragmentActivity {
     public String getData() {
         return data;
     }
- /*   private void sendData(){
-        new Thread(() -> {
-            Map<String, String> map = new HashMap<>();
-            map.put("publisherPhone", phone);
-            data = HttpUtils.sendPostMessage(map, "UTF-8", "findPublisherPhone");
-            //Log.d("Data是", data);
-            //传递数据
-            Bundle bundle = new Bundle();
-            bundle.putString("data", data);
-            taskFragment fragment =(taskFragment) mAdapter.getItem(0);
-            fragment.setArguments(bundle);
-        }).start();
+    /*private void postPreference(String data) {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("phone_start", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("phone", data);
+        editor.apply();
+    }
+
+    private String getPerference() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("phone_start", 0);
+        String answer = sharedPreferences.getString("phone", "");
+        return answer;
     }*/
 }

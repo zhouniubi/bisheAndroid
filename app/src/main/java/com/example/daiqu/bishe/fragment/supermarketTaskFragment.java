@@ -240,34 +240,7 @@ public class supermarketTaskFragment extends Fragment {
     }
     private void numCount(){
         //设置文字计数
-        task_introduce2.addTextChangedListener(new TextWatcher() {
-            private CharSequence wordNum;//记录输入的字数
-            private int selectionStart;
-            private int selectionEnd;
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                wordNum = s;
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                textNum2.setText(num - wordNum.length() + "/" + num);
-                selectionStart = task_introduce2.getSelectionStart();
-                selectionEnd = task_introduce2.getSelectionEnd();
-                if (wordNum.length() > num) {
-                    s.delete(selectionStart - 1, selectionEnd);
-                    int tempSelection = selectionEnd;
-                    task_introduce2.setText(s);
-                    task_introduce2.setSelection(tempSelection);//设置光标在最后
-                }
-            }
-        });
+        tool.textNumCount(task_introduce2,textNum2,num);
     }
     private void deletePic(){
         new Thread(() -> getActivity().runOnUiThread(() -> {
@@ -284,7 +257,7 @@ public class supermarketTaskFragment extends Fragment {
     //设置加载栏开关
     private void showProcess() {
         if (dialog == null) {
-            dialog = processDialog.createLoadingDialog(getContext());
+            dialog = processDialog.createLoadingDialog(getContext(),"正在上传");
             WindowManager m = getActivity().getWindowManager();
             Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
             Window dialogWindow = dialog.getWindow();

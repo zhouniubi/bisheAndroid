@@ -180,7 +180,7 @@ public class loadActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityCollector.removeActivity(this);
+        /*ActivityCollector.removeActivity(this);*/
     }
 
     //正则表达式判断是不是手机号

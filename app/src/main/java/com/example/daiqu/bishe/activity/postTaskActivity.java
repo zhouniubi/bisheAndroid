@@ -80,13 +80,15 @@ public class postTaskActivity extends Activity {
                 }
                 Looper.loop();
             } else {
-                if (data.equals("[{\"publisherName\":null,\"accpterName\":null,\"id\":null,\"taskCode\":null,\"publisherPhone\":null,\"accepterPhone\":null,\"type\":null,\"title\":null,\"getPlace\":null,\"postPlace\":null,\"needTime\":null,\"money\":null,\"infomation\":null,\"state\":null,\"pic\":null,\"file\":null,\"time\":null,\"time2\":null}]")) {
+                if (data.equals("[{\"publisherName\":null,\"accepterName\":null,\"id\":null,\"taskCode\":null,\"publisherPhone\":null,\"accepterPhone\":null,\"type\":null,\"title\":null,\"getPlace\":null,\"postPlace\":null,\"needTime\":null,\"money\":null,\"infomation\":null,\"state\":null,\"pic\":null,\"file\":null,\"time\":null,\"time2\":null}]")) {
+                    Log.d("DATA空是", data);
                     postPreference("null");
                     runOnUiThread(() -> {
                         textView.setVisibility(View.VISIBLE);
                         postTaskList.setVisibility(View.GONE);
                     });
                 } else {
+                    Log.d("DATA不空是", data);
                     runOnUiThread(() -> {
                         textView.setVisibility(View.GONE);
                         postTaskList.setVisibility(View.VISIBLE);

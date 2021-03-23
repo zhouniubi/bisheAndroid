@@ -1,13 +1,10 @@
 package com.example.daiqu.bishe.fragment;
 
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
@@ -32,6 +29,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.daiqu.R;
@@ -59,6 +57,7 @@ public class washTaskFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private final int CHOOSE_PIC = 0;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -73,6 +72,7 @@ public class washTaskFragment extends Fragment {
     private File file = null;
     private String pic_path = "", phone = "", type = "0", time = "";
     private Uri pic_uri;
+
     private Dialog dialog;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -109,6 +109,7 @@ public class washTaskFragment extends Fragment {
         textNum.setText(num + "/" + num);
         return view;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -131,34 +132,7 @@ public class washTaskFragment extends Fragment {
             }
         });
         //设置文字计数
-        task_introduce1.addTextChangedListener(new TextWatcher() {
-            private CharSequence wordNum;//记录输入的字数
-            private int selectionStart;
-            private int selectionEnd;
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                wordNum = s;
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                textNum.setText(num - wordNum.length() + "/" + num);
-                selectionStart = task_introduce1.getSelectionStart();
-                selectionEnd = task_introduce1.getSelectionEnd();
-                if (wordNum.length() > num) {
-                    s.delete(selectionStart - 1, selectionEnd);
-                    int tempSelection = selectionEnd;
-                    task_introduce1.setText(s);
-                    task_introduce1.setSelection(tempSelection);//设置光标在最后
-                }
-            }
-        });
+        tool.textNumCount(task_introduce1,textNum,num);
         //设置显示本地图片
         layout_addPic1.setOnClickListener(v -> {
             /*因为miui系统问题设置不打开侧边菜单栏进行照片选择*/
@@ -273,16 +247,14 @@ public class washTaskFragment extends Fragment {
                     pic_uri = data.getData();
                     tool tool_t = new tool();
                     pic_path = tool_t.getPath(getView().getContext(), pic_uri);
-                /*if (pic_path == null) {
-                    //获得图片路径方式之一，不推荐，很多手机获取后无法解析
-                    pic_path = pic_uri.getEncodedPath();
-                }*/
                     System.out.println("pic_path:" + pic_path);
                     Toast.makeText(getActivity(), pic_path, Toast.LENGTH_SHORT).show();
-                    ContentResolver cr = getActivity().getContentResolver();
                     try {
                         Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(pic_path)
                                 , getView().getHeight(), getView().getWidth(), false);
+                        Log.d("Height()是:",  String.valueOf(getView().getHeight()));
+                        Log.d("Width()是:",  String.valueOf(getView().getWidth()));
+
                         /* 将Bitmap设定到ImageView */
                         task_addPicture1.setImageBitmap(bitmap);
                         layout_addPic1.setClickable(false);
@@ -320,7 +292,7 @@ public class washTaskFragment extends Fragment {
     //设置加载栏开关
     private void showProcess() {
         if (dialog == null) {
-            dialog = processDialog.createLoadingDialog(getContext());
+            dialog = processDialog.createLoadingDialog(getContext(),"正在上传");
             WindowManager m = getActivity().getWindowManager();
             Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
             Window dialogWindow = dialog.getWindow();
@@ -334,6 +306,7 @@ public class washTaskFragment extends Fragment {
     }
 
     private void closeProcess() {
+
         if (dialog != null) {
             dialog.dismiss();
             dialog = null;
@@ -342,14 +315,15 @@ public class washTaskFragment extends Fragment {
 
     private void deletePic() {
         new Thread(() -> getActivity().runOnUiThread(() -> {
-        pic_path = "";
-        file = null;
-        Resources resources = getActivity().getResources();
-        Drawable imageDrawable = resources.getDrawable(R.drawable.add_picture, null); //图片在drawable文件夹下
-        task_addPicture1.setImageDrawable(imageDrawable);
-        task_deletePicture1.setVisibility(View.GONE);
-        text_addImg.setVisibility(View.VISIBLE);
-        layout_addPic1.setClickable(true);
+            pic_path = "";
+            file = null;
+             /* Resources resources = getActivity().getResources();
+            Drawable imageDrawable = resources.getDrawable(R.drawable.add_picture, null);*/
+            //图片在drawable文件夹下(上面的方法过时了。。。)
+            task_addPicture1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.add_picture));
+            task_deletePicture1.setVisibility(View.GONE);
+            text_addImg.setVisibility(View.VISIBLE);
+            layout_addPic1.setClickable(true);
         })).start();
     }
 

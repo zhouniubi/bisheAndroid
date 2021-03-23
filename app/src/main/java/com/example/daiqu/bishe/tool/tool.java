@@ -3,7 +3,6 @@ package com.example.daiqu.bishe.tool;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -12,13 +11,15 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.mob.MobSDK.getContext;
 
 public class tool {
     //正则表达式判断是不是手机号
@@ -172,39 +173,34 @@ public class tool {
                     REQUEST_EXTERNAL_STORAGE);
         }
     }
+    /*统计编辑框中的文字数量，第一个参数为需要监听的编辑框，第二个为计数文本，第三个为限制长度*/
+    public static void textNumCount(EditText editText, TextView textView, int textNum){
+        editText.addTextChangedListener(new TextWatcher() {
+            private CharSequence wordNum;//记录输入的字数
+            private int selectionStart;
+            private int selectionEnd;
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-    public Uri geturi(android.content.Intent intent) {
-        Uri uri = intent.getData();
-        String type = intent.getType();
-        if (uri.getScheme().equals("file") && (type.contains("image/"))) {
-            String path = uri.getEncodedPath();
-            if (path != null) {
-                path = Uri.decode(path);
-                ContentResolver cr = getContext().getContentResolver();
-                StringBuffer buff = new StringBuffer();
-                buff.append("(").append(MediaStore.Images.ImageColumns.DATA).append("=")
-                        .append("'" + path + "'").append(")");
-                Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        new String[]{MediaStore.Images.ImageColumns._ID},
-                        buff.toString(), null, null);
-                int index = 0;
-                for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
-                    index = cur.getColumnIndex(MediaStore.Images.ImageColumns._ID);
-                    // set _id value
-                    index = cur.getInt(index);
-                }
-                if (index == 0) {
-                    // do nothing
-                } else {
-                    Uri uri_temp = Uri
-                            .parse("content://media/external/images/media/"
-                                    + index);
-                    if (uri_temp != null) {
-                        uri = uri_temp;
-                    }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                wordNum = s;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                textView.setText(textNum-wordNum.length()+"/"+textNum);
+                selectionStart = editText.getSelectionStart();
+                selectionEnd = editText.getSelectionEnd();
+                if (wordNum.length() > textNum) {
+                    s.delete(selectionStart - 1, selectionEnd);
+                    int tempSelection = selectionEnd;
+                    editText.setText(s);
+                    editText.setSelection(tempSelection);//设置光标在最后
                 }
             }
-        }
-        return uri;
+        });
     }
+
 }

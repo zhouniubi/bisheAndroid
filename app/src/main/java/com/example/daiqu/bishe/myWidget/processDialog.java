@@ -8,18 +8,22 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.daiqu.R;
 
 public class processDialog {
 
 
-    public static Dialog createLoadingDialog(Context context) {
+    public static Dialog createLoadingDialog(Context context,String text) {
         // 首先得到整个View
         View view = LayoutInflater.from(context).inflate(
                 R.layout.process_dialog1, null);
         // 获取整个布局
         LinearLayout layout = view.findViewById(R.id.process_layout);
+        // 设置进度框中的文字信息
+        TextView textView = view.findViewById(R.id.processText);
+        textView.setHint(text);
         // 页面中的Img
         ImageView img =  view.findViewById(R.id.process_img);
 

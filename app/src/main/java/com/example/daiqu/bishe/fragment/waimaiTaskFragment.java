@@ -206,7 +206,7 @@ public class waimaiTaskFragment extends Fragment {
     //设置加载栏开关
     private void showProcess() {
         if (dialog == null) {
-            dialog = processDialog.createLoadingDialog(getContext());
+            dialog = processDialog.createLoadingDialog(getContext(),"正在上传");
             WindowManager m = getActivity().getWindowManager();
             Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
             Window dialogWindow = dialog.getWindow();
@@ -283,34 +283,7 @@ public class waimaiTaskFragment extends Fragment {
 
     private void numCount(){
         //设置文字计数
-        task_introduce3.addTextChangedListener(new TextWatcher() {
-            private CharSequence wordNum;//记录输入的字数
-            private int selectionStart;
-            private int selectionEnd;
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                wordNum = s;
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                textNum3.setText(num - wordNum.length() + "/" + num);
-                selectionStart = task_introduce3.getSelectionStart();
-                selectionEnd = task_introduce3.getSelectionEnd();
-                if (wordNum.length() > num) {
-                    s.delete(selectionStart - 1, selectionEnd);
-                    int tempSelection = selectionEnd;
-                    task_introduce3.setText(s);
-                    task_introduce3.setSelection(tempSelection);//设置光标在最后
-                }
-            }
-        });
+        tool.textNumCount(task_introduce3,textNum3,num);
     }
     //获取本地图片
     @Override

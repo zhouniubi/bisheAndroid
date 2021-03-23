@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:text="标题:"
             android:layout_below="@+id/taskInfomation_code"
-            android:textColor="@color/smssdk_gray"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:padding="10dp"
             />
@@ -71,7 +71,7 @@
             android:layout_toRightOf="@id/titleText"
             android:text="这是测试Demo"
             android:textSize="18sp"
-            android:textColor="@color/smssdk_gray"
+            android:textColor="@color/black"
             android:background="@drawable/select_edittext"
            />
         <TextView
@@ -98,14 +98,14 @@
             android:enabled="false"/>
         <TextView
             android:id="@+id/task_info_publisher"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/taskInfomation_code"
+            android:layout_alignParentEnd="true"
             android:layout_below="@+id/taskInformation_title"
             android:textSize="15sp"
             android:layout_alignTop="@+id/spinner_info"
             android:layout_alignBottom="@+id/spinner_info"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:textColor="@color/smssdk_gray"
             android:text="发布者：周先生"
             android:enabled="false"/>
@@ -113,7 +113,7 @@
             android:id="@+id/task_info_accepter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/taskInfomation_code"
+            android:layout_alignStart="@id/task_info_publisher"
             android:layout_below="@+id/task_info_publisher"
             android:textSize="15sp"
             android:textColor="@color/smssdk_gray"
@@ -264,13 +264,15 @@
         android:layout_marginEnd="10dp"
         android:layout_below="@+id/taskInformationPart2"
         android:background="@drawable/layout_style2">
+
         <ImageView
             android:id="@+id/task_info_pic"
             android:layout_width="80dp"
             android:layout_height="75dp"
+            android:layout_marginStart="20dp"
             android:src="@drawable/add_picture"
-            android:visibility="visible"
-            />
+            android:visibility="visible" />
+
         <ImageView
             android:id="@+id/task_info_deletePic"
             android:layout_toEndOf="@+id/task_info_pic"
@@ -291,7 +293,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:id="@+id/taskInformationPart4"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
@@ -317,17 +319,16 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:text="100/100"
             android:textSize="12sp"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/taskInformationPart5"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_below="@+id/taskInformationPart4"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/layout_style2">
         <ImageView
             android:id="@+id/task_info_delete"
@@ -354,12 +355,20 @@
             android:padding="10dp"
             android:visibility="gone"/>
         <ImageView
+            android:id="@+id/task_info_confirm"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:src="@drawable/task_confirm"
+            android:padding="10dp"
+            android:visibility="visible"/>
+        <ImageView
             android:id="@+id/task_info_commit"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:src="@drawable/commit_task"
             android:padding="10dp"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
     </LinearLayout>
 </RelativeLayout>
