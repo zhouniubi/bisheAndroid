@@ -57,8 +57,6 @@ public class showTaskInformation extends Activity {
     private final int CHOOSE_PIC = 0;
     private Uri pic_uri;
     private String pic_path = "";
-    private String state = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,7 +179,6 @@ public class showTaskInformation extends Activity {
             task_info_postPlace.setEnabled(enable);
             task_info_introduce.setEnabled(enable);
             setSpinner(data.getNeedTime(), enable);
-
         } else {
             taskInformation_title.setEnabled(enable);
             task_info_money.setEnabled(enable);
@@ -195,9 +192,7 @@ public class showTaskInformation extends Activity {
             task_info_introduce.setFocusableInTouchMode(enable);
             taskInformation_title.requestFocus();
             setSpinner(data.getNeedTime(), enable);
-
         }
-
     }
 
     private void setVisible(int visible1, int visible2, int visible3, int visible4, int visible5, int visible6) {
@@ -438,8 +433,7 @@ public class showTaskInformation extends Activity {
                 public void onFailure(Call call, IOException e) {
                     closeProcess();
                     e.printStackTrace();
-                    Toast.makeText(showTaskInformation.this, "服务器连接出错了！", Toast.LENGTH_SHORT);
-
+                    Toast.makeText(showTaskInformation.this, "服务器连接出错了！", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -460,6 +454,7 @@ public class showTaskInformation extends Activity {
                     d.getSize(size);
                     p.height = (int) (size.y*0.2 );
                     p.width = (int) (size.x*0.8 );
+                    //压制图片
                     bmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/2,bitmap.getHeight()/2,true );
                     closeProcess();
                 }

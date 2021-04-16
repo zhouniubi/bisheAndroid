@@ -59,6 +59,7 @@ public class loadActivity extends Activity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         SharedPreferences  sharedPreferences = getSharedPreferences("loadStatePerference", 0);
         String loadState = sharedPreferences.getString("loadState", "null");
+
         if (loadState.equals("111")) {
             //设置自动登录
             Intent intent = new Intent(loadActivity.this, startActivity.class);
@@ -91,12 +92,12 @@ public class loadActivity extends Activity {
                 new Thread(() -> {
                     String state = HttpUtils.sendPostMessage(dataMap, "UTF-8", "load");
                     runOnUiThread(new Thread(() -> {
-
                         if (!isPhone(phone_input.getText().toString())) {
                             notice.setText("请输入正确的手机号！");
                         } else {
                             switch (state) {
                                 case "111":
+
                                     Intent intent = new Intent(loadActivity.this, startActivity.class);
                                     intent.putExtra("phone", phone);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();

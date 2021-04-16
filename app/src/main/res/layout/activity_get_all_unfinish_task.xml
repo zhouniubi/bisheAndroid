@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bishe.activity.getAllUnfinishTask">
+
+    <RelativeLayout
+        android:id="@+id/title_task_getAll"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/title1"
+        android:orientation="vertical"
+        tools:context=".bishe.activity.startActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="可接取任务"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/title_paixu2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/paixu" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/show_no_msg2"
+        android:layout_below="@+id/title_task_getAll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="暂无数据"/>
+    <ListView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/postTaskList2"
+        android:layout_below="@+id/title_task_getAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:divider="#00000000"
+        android:dividerHeight="10dp"
+        android:scrollbars="none"
+        />
+
+</RelativeLayout>

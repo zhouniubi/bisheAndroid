@@ -75,7 +75,7 @@ public class PostTaskListViewAdapter extends ArrayAdapter<TaskDataWithName> {
         item_title2.setText(taskDataWithName.getTitle());
         item_time2.setText("发布时间：" + taskDataWithName.getTime().substring(0, 16));
         if (!taskDataWithName.getTime2().equals("null")) {
-            item_time22.setText("接收时间：" + taskDataWithName.getTime().substring(0, 16));
+            item_time22.setText("接收时间：" + taskDataWithName.getTime2().substring(0, 16));
         } else {
             item_time22.setText("接收时间：" + "暂无");
         }

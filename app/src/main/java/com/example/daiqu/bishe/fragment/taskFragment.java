@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.fastjson.JSONArray;
 import com.example.daiqu.R;
+import com.example.daiqu.bishe.activity.getTaskActivity;
 import com.example.daiqu.bishe.activity.postTaskActivity;
 import com.example.daiqu.bishe.activity.startActivity;
 import com.example.daiqu.bishe.adapter.RecentTaskListViewAdapter;
@@ -43,7 +44,7 @@ public class taskFragment extends Fragment {
     private String mParam2;
     private ListView listView;
     private TextView textView;
-    private LinearLayout Running_task_layout1;
+    private LinearLayout Running_task_layout1,Running_task_layout2;
     public static String phone = "";
     //private String data = "";
 
@@ -101,6 +102,10 @@ public class taskFragment extends Fragment {
             Intent intent = new Intent(getActivity(), postTaskActivity.class);
             startActivity(intent);
         });
+        Running_task_layout2.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), getTaskActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -113,6 +118,7 @@ public class taskFragment extends Fragment {
         textView = view.findViewById(R.id.recentTaskHint);
         listView = view.findViewById(R.id.recentTaskList);
         Running_task_layout1 = view.findViewById(R.id.Running_task_layout1);
+        Running_task_layout2 = view.findViewById(R.id.Running_task_layout2);
         Map<String, String> map = new HashMap<>();
         map.put("publisherPhone", phone);
         new Thread(() -> {

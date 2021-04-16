@@ -30,7 +30,7 @@
         android:layout_marginLeft="40dp">
 
         <ImageView
-            android:id="@+id/get_task"
+            android:id="@+id/post_task"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/kuaidi_yuan1" />

@@ -52,9 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/item_title2"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="25dp"
         android:gravity="center"
-        android:text="发布时间：2021-02-24 18:56"
+        android:text="发布时间:2021-02-24 18:56"
         android:textSize="12sp" />
 
     <TextView
@@ -63,9 +63,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/item_time2"
         android:layout_alignStart="@id/item_time2"
-        android:layout_marginEnd="20dp"
+        android:layout_alignBottom="@id/useTime"
         android:gravity="center"
-        android:text="接收时间：2021-02-24 18:56"
+        android:text="接收时间:2021-03-26 09:55"
         android:textSize="12sp" />
 
     <LinearLayout

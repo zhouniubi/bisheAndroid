@@ -3,6 +3,7 @@ package com.example.daiqu.bishe.activity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -19,6 +20,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.daiqu.R;
+import com.example.daiqu.bishe.TencentUtils.TencentIM;
 import com.example.daiqu.bishe.adapter.MyFragmentPagerAdapter;
 import com.example.daiqu.bishe.fragment.messageFragment;
 import com.example.daiqu.bishe.fragment.taskFragment;
@@ -33,7 +35,7 @@ public class startActivity extends FragmentActivity {
     private TextView text_daiqu, text_message, text_user;
     private RadioButton frag_task, frag_message, frag_user;
     private ViewPager vpager;
-    public String phone = "";
+    public static String phone = "";
     private MyFragmentPagerAdapter mAdapter;
     public static final int PAGE_ONE = 0;
     public static final int PAGE_TWO = 1;
@@ -63,6 +65,10 @@ public class startActivity extends FragmentActivity {
         切忌修改该参数！！！！*/
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         initwidget();
+        //初始化腾讯服务
+        TencentIM.initIm(this);
+        //腾讯三方登录（用于后续聊天）
+        TencentIM.load(phone);
         vpager.setAdapter(mAdapter);
         vpager.setOffscreenPageLimit(2);
         vpager.setCurrentItem(0);
@@ -70,46 +76,22 @@ public class startActivity extends FragmentActivity {
         setRadioBtChecked(true, false, false);
         setTextSelected(true, false, false);
         //传递手机号数据到碎片
-        transPhoneData();
+        //transPhoneData();
 
         //sendData();
         frag_task.setOnClickListener(v -> {
-            vpager.setAdapter(mAdapter);
             vpager.setCurrentItem(0);
             setRadioBtChecked(true, false, false);
             setTextSelected(true, false, false);
             setTitleText(0);
         });
         frag_message.setOnClickListener(v -> {
-            vpager.setAdapter(mAdapter);
             vpager.setCurrentItem(1);
             setRadioBtChecked(false, true, false);
             setTextSelected(false, true, false);
             setTitleText(1);
         });
         frag_user.setOnClickListener(v -> {
-            vpager.setAdapter(mAdapter);
-            vpager.setCurrentItem(2);
-            setRadioBtChecked(false, false, true);
-            setTextSelected(false, false, true);
-            setTitleText(2);
-        });
-        task_layout.setOnClickListener(v -> {
-            vpager.setAdapter(mAdapter);
-            vpager.setCurrentItem(0);
-            setRadioBtChecked(true, false, false);
-            setTextSelected(true, false, false);
-            setTitleText(0);
-        });
-        msg_layout.setOnClickListener(v -> {
-            vpager.setAdapter(mAdapter);
-            vpager.setCurrentItem(1);
-            setRadioBtChecked(false, true, false);
-            setTextSelected(false, true, false);
-            setTitleText(1);
-        });
-        user_layout.setOnClickListener(v -> {
-            vpager.setAdapter(mAdapter);
             vpager.setCurrentItem(2);
             setRadioBtChecked(false, false, true);
             setTextSelected(false, false, true);
@@ -183,15 +165,15 @@ public class startActivity extends FragmentActivity {
                 intent.putExtra("phone", phone);
                 startActivity(intent);
             });
+            dialog.getWindow().findViewById(R.id.post_task).setOnClickListener(v1 -> {
+                dialog.cancel();
+                Intent intent = new Intent(this, getAllUnfinishTask.class);
+                intent.putExtra("phone", phone);
+                startActivity(intent);
+            });
         });
 
     }
-
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        transPhoneData();
-    }*/
 
     @Override
     protected void onDestroy() {
@@ -230,6 +212,9 @@ public class startActivity extends FragmentActivity {
         task_layout = findViewById(R.id.task_layout);
         msg_layout = findViewById(R.id.msg_layout);
         user_layout = findViewById(R.id.user_layout);
+        SharedPreferences sharedPreferences= getSharedPreferences("loadStatePerference", 0);
+        phone = sharedPreferences.getString("phone", "");
+
     }
     private void setTitleText(int position) {
         if (position == 0) {
@@ -243,18 +228,6 @@ public class startActivity extends FragmentActivity {
             title_add.setVisibility(View.GONE);
         }
     }
-
-    //传递手机号
-    private void transPhoneData() {
-        Intent intentPhone = getIntent();
-        phone = intentPhone.getStringExtra("phone");
-        /*if(!phone.equals("")){
-            postPreference(phone);
-        }else{
-            phone = getPerference();
-        }*/
-    }
-
     //获得手机号
     public String getPhone() {
         return phone;
@@ -263,13 +236,13 @@ public class startActivity extends FragmentActivity {
     public String getData() {
         return data;
     }
-    /*private void postPreference(String data) {
+   /* private void postPreference(String data) {
         SharedPreferences sharedPreferences = this.getSharedPreferences("phone_start", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("phone", data);
         editor.apply();
-    }
-
+    }*/
+   /* //读取缓存
     private String getPerference() {
         SharedPreferences sharedPreferences = this.getSharedPreferences("phone_start", 0);
         String answer = sharedPreferences.getString("phone", "");

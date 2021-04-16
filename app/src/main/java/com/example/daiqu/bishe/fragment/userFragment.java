@@ -1,14 +1,17 @@
 package com.example.daiqu.bishe.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.daiqu.R;
+import com.example.daiqu.bishe.TencentUtils.TencentIM;
+import com.example.daiqu.bishe.tool.ActivityCollector;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +28,7 @@ public class userFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private RelativeLayout user_information_layout3;
     public userFragment() {
         // Required empty public constructor
     }
@@ -61,6 +64,23 @@ public class userFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        View view =  inflater.inflate(R.layout.fragment_user, container, false);
+        initWidget(view);
+        onClick();
+        return view;
+    }
+    private void initWidget(View view){
+        user_information_layout3 = view.findViewById(R.id.user_information_layout3);
+    }
+    private void onClick(){
+        user_information_layout3.setOnClickListener(v -> {
+            SharedPreferences  sharedPreferences = getActivity().getSharedPreferences("loadStatePerference", 0);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("loadState", "000");
+            String phone = sharedPreferences.getString("phone", "");
+            editor.apply();
+            TencentIM.logout();
+            ActivityCollector.finishAll();
+        });
     }
 }

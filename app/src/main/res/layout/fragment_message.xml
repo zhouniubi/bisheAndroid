@@ -8,9 +8,22 @@
     >
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/no_chat_room_notice"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="message界面"
-        android:textSize="30sp"/>
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:text="暂无消息"
+        />
+    <ListView
+        android:id="@+id/chat_room_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:scrollbars="none"
+        android:layout_marginTop="10dp"
+        />
+
 
 </RelativeLayout>

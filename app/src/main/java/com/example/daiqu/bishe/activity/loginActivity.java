@@ -96,6 +96,7 @@ public class loginActivity extends Activity {
                 String state = msg.obj.toString();
                 if (state.equals("11")) {
                     Toast.makeText(myActivity, "注册成功啦，请返回登录界面(￣▽￣)", Toast.LENGTH_SHORT).show();
+
                 } else if (state.equals("10")) {
                     Toast.makeText(myActivity, "该手机号已被注册，请更换手机号呢（；´д｀）ゞ", Toast.LENGTH_SHORT).show();
                 } else {

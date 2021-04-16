@@ -22,7 +22,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Daiqu">
-        <activity android:name=".bishe.activity.showTaskInformation"></activity>
+        <activity android:name=".bishe.activity.chatActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".bishe.activity.showTaskInformation2" />
+        <activity android:name=".bishe.activity.getTaskActivity" />
+        <activity android:name=".bishe.activity.showUnfinishTaskInformation" />
+        <activity android:name=".bishe.activity.getAllUnfinishTask" />
+        <activity android:name=".bishe.activity.showTaskInformation" />
         <activity android:name=".bishe.activity.postTaskActivity" />
         <activity android:name=".bishe.activity.createTaskActivity" /> <!-- android:theme="@style/notitle" -->
         <service
