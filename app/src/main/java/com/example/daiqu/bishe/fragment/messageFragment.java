@@ -103,7 +103,7 @@ public class messageFragment extends Fragment {
                     super.onSyncServerFinish();
                     Log.d("TencentServeState", "服务器同步完成");
                     //拉取50个会话用作展示
-                    manager.getConversationList(0, 50, new V2TIMValueCallback<V2TIMConversationResult>() {
+                    manager.getConversationList(0, 100, new V2TIMValueCallback<V2TIMConversationResult>() {
                         @Override
                         public void onError(int i, String s) {
                             Log.d("chatListState", "拉取失败！");

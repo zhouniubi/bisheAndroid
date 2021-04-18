@@ -81,7 +81,7 @@ public class showTaskInformation extends Activity {
         //设置相关控件的可用性
         setEnable(false);
         //设置底部ui的可见性
-        setVisible(0, 0, 0, 8, 8, 8);
+        //setVisible(0, 0, 0, 8, 8, 8);
         //设置点击事件
         onClick();
         //设置图片的可点击性
@@ -120,8 +120,10 @@ public class showTaskInformation extends Activity {
         task_info_publisher.setText("发布者：" + AES.decrypt(data.getPublisherName()));
         if ("null".equals(data.getAccepterName())) {
             task_info_accepter.setText("接收者：暂无");
+            setVisible(0, 8, 0, 8, 8, 8);
         } else {
             task_info_accepter.setText("接收者：" + AES.decrypt(data.getAccepterName()));
+            setVisible(0, 0, 0, 8, 8, 8);
         }
         taskInformation_fb_time.setText("发布时间：" + data.getTime());
         if ("null".equals(data.getTime2())) {
@@ -384,6 +386,14 @@ public class showTaskInformation extends Activity {
 
             }
         });
+        task_info_chat.setOnClickListener(v -> {
+           /* Intent intent = new Intent();
+            intent.putExtra("toUser", AES.decrypt(data.getAccepterPhone()));
+            intent.putExtra("toUserName", AES.decrypt(data.getAccepterName()));
+            startActivity(intent);*/
+
+
+        });
     }
 
     private void setSpinner(String time, Boolean enable) {
@@ -438,7 +448,6 @@ public class showTaskInformation extends Activity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-
                     byte[] dataByte = response.body().bytes();
                     runOnUiThread(() -> {
                         Glide.with(showTaskInformation.this).load(dataByte).centerCrop().into(task_info_pic);

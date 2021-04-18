@@ -3,14 +3,14 @@ package com.example.daiqu.bishe.TencentUtils;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.daiqu.bishe.data.userData;
 import com.example.daiqu.bishe.tool.AES;
 import com.tencent.imsdk.v2.V2TIMCallback;
 import com.tencent.imsdk.v2.V2TIMManager;
 import com.tencent.imsdk.v2.V2TIMMessage;
 import com.tencent.imsdk.v2.V2TIMSDKConfig;
 import com.tencent.imsdk.v2.V2TIMSDKListener;
-import com.tencent.imsdk.v2.V2TIMSimpleMsgListener;
-import com.tencent.imsdk.v2.V2TIMUserInfo;
+import com.tencent.imsdk.v2.V2TIMUserFullInfo;
 import com.tencent.imsdk.v2.V2TIMValueCallback;
 
 public class TencentIM {
@@ -43,7 +43,7 @@ public class TencentIM {
         });
     }
     //用户登录
-    public static void load(String phone){
+    public static void load(String phone,userData uData){
         V2TIMCallback callback = new V2TIMCallback() {
             @Override
             public void onError(int i, String s) {
@@ -53,6 +53,7 @@ public class TencentIM {
             @Override
             public void onSuccess() {
                 Log.d("loading", "登录成功！");
+                setUserMsg(uData);
             }
         };
         V2TIMManager.getInstance().login(AES.decrypt(phone), GenerateTestUserSig.genTestUserSig(AES.decrypt(phone)),callback);
@@ -87,18 +88,25 @@ public class TencentIM {
         };
         V2TIMManager.getInstance().sendC2CTextMessage(msg, toUserId, callback);
     }
-    //接收消息(仅限文本)
-    public static void getMsg(){
-       /* msgID	消息唯一标识
-        sender	发送方信息
-        text	发送内容*/
-        V2TIMSimpleMsgListener msgListener = new V2TIMSimpleMsgListener() {
+    //设置个人信息
+    public static void setUserMsg(userData uData){
+        //load(AES.decrypt(uData.getPhone()));
+        V2TIMCallback callback = new V2TIMCallback() {
             @Override
-            public void onRecvC2CTextMessage(String msgID, V2TIMUserInfo sender, String text) {
-                super.onRecvC2CTextMessage(msgID, sender, text);
-                Log.d("receiveMSg", sender.getUserID()+"接收到消息:"+text);
+            public void onError(int i, String s) {
+                Log.d("setUserMsg", "设置个人信息失败"+"错误码："+i+";"+"错误信息："+s);
+
+            }
+
+            @Override
+            public void onSuccess() {
+                Log.d("setUserMsg", "设置个人信息成功");
             }
         };
-        V2TIMManager.getInstance().addSimpleMsgListener(msgListener);
+        V2TIMUserFullInfo userFullInfo = new V2TIMUserFullInfo();
+
+        userFullInfo.setNickname(AES.decrypt(uData.getName()));
+        //userFullInfo.setFaceUrl(uData.getPic());
+        V2TIMManager.getInstance().setSelfInfo(userFullInfo,callback);
     }
 }

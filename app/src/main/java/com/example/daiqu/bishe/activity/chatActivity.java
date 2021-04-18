@@ -67,9 +67,6 @@ public class chatActivity extends Activity {
         //setMsgAdapter();
     }
     protected void onSendMsg(){
-        input_chat_msg.setOnClickListener(v -> {
-            recyclerView.scrollToPosition(v2TIMMessages1.size()-1);
-        });
         chat_msg_commit.setOnClickListener(v -> {
             String msg = input_chat_msg.getText().toString();
             Log.d("msgdata", msg);

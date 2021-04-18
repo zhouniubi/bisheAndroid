@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Daiqu">
         <activity android:name=".bishe.activity.chatActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".bishe.activity.showTaskInformation2" />
         <activity android:name=".bishe.activity.getTaskActivity" />
         <activity android:name=".bishe.activity.showUnfinishTaskInformation" />

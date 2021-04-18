@@ -33,6 +33,7 @@ public class getTaskActivity extends Activity {
     private ImageView title_paixu;
     private String phone = "";
     private List<TaskDataWithName> list;
+    private String netState = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,7 @@ public class getTaskActivity extends Activity {
             map.put("state", "01");
             map.put("accepterPhone", phone);
             String data = HttpUtils.sendPostMessage(map, "UTF-8", "findTaskByStateAndPhone");
+
             if (data.equals("-999")) {
                 Looper.prepare();
                 Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT).show();
@@ -122,12 +124,16 @@ public class getTaskActivity extends Activity {
             }));
         });
         postTaskList.setOnItemClickListener((parent, view, position, id) -> {
-            TaskDataWithName taskData = list.get(position);
-            Intent intent = new Intent(this,showTaskInformation2.class);
-            intent.putExtra("taskData", taskData);
-            intent.putExtra("phone", phone);
-            Log.d("taskData", taskData.getTitle());
-            startActivity(intent);
+            if(netState.equals("-999")) {
+                TaskDataWithName taskData = list.get(position);
+                Intent intent = new Intent(this, showTaskInformation2.class);
+                intent.putExtra("taskData", taskData);
+                intent.putExtra("phone", phone);
+                Log.d("taskData", taskData.getTitle());
+                startActivity(intent);
+            }else{
+                Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT).show();
+            }
         });
     }
     private void postPreference(String data) {

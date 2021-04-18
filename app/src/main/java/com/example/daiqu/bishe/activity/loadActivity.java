@@ -25,6 +25,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.daiqu.R;
+import com.example.daiqu.bishe.TencentUtils.TencentIM;
 import com.example.daiqu.bishe.tool.AES;
 import com.example.daiqu.bishe.tool.ActivityCollector;
 import com.example.daiqu.bishe.tool.HttpUtils;
@@ -61,6 +62,8 @@ public class loadActivity extends Activity {
         String loadState = sharedPreferences.getString("loadState", "null");
 
         if (loadState.equals("111")) {
+            //初始化腾讯服务
+            TencentIM.initIm(this);
             //设置自动登录
             Intent intent = new Intent(loadActivity.this, startActivity.class);
             intent.putExtra("phone", sharedPreferences.getString("phone", "null"));
@@ -97,7 +100,8 @@ public class loadActivity extends Activity {
                         } else {
                             switch (state) {
                                 case "111":
-
+                                    //初始化腾讯服务
+                                    TencentIM.initIm(this);
                                     Intent intent = new Intent(loadActivity.this, startActivity.class);
                                     intent.putExtra("phone", phone);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();

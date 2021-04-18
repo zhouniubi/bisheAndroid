@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -19,13 +20,19 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.alibaba.fastjson.JSONArray;
 import com.example.daiqu.R;
 import com.example.daiqu.bishe.TencentUtils.TencentIM;
 import com.example.daiqu.bishe.adapter.MyFragmentPagerAdapter;
+import com.example.daiqu.bishe.data.userData;
 import com.example.daiqu.bishe.fragment.messageFragment;
 import com.example.daiqu.bishe.fragment.taskFragment;
 import com.example.daiqu.bishe.fragment.userFragment;
 import com.example.daiqu.bishe.tool.ActivityCollector;
+import com.example.daiqu.bishe.tool.HttpUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
@@ -46,7 +53,8 @@ public class startActivity extends FragmentActivity {
     private TextView title_text;
     private ImageView title_add;
     private String data = "";
-
+    public userData uData;
+    //private final MyHandler handler = new MyHandler(this);
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +73,18 @@ public class startActivity extends FragmentActivity {
         切忌修改该参数！！！！*/
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         initwidget();
-        //初始化腾讯服务
-        TencentIM.initIm(this);
-        //腾讯三方登录（用于后续聊天）
-        TencentIM.load(phone);
+
+       /* //初始化腾讯服务
+        TencentIM.initIm(this);*/
+        getUser(phone);
+
         vpager.setAdapter(mAdapter);
         vpager.setOffscreenPageLimit(2);
         vpager.setCurrentItem(0);
         title_text.setText("任务");
         setRadioBtChecked(true, false, false);
         setTextSelected(true, false, false);
-        //传递手机号数据到碎片
-        //transPhoneData();
 
-        //sendData();
         frag_task.setOnClickListener(v -> {
             vpager.setCurrentItem(0);
             setRadioBtChecked(true, false, false);
@@ -175,12 +181,6 @@ public class startActivity extends FragmentActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-       /* ActivityCollector.finishAll();*/
-    }
-
     //封装所有的文本的选择状态
     private void setTextSelected(boolean daiqu, boolean message, boolean user) {
         text_daiqu.setSelected(daiqu);
@@ -236,16 +236,26 @@ public class startActivity extends FragmentActivity {
     public String getData() {
         return data;
     }
-   /* private void postPreference(String data) {
-        SharedPreferences sharedPreferences = this.getSharedPreferences("phone_start", 0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("phone", data);
-        editor.apply();
-    }*/
-   /* //读取缓存
-    private String getPerference() {
-        SharedPreferences sharedPreferences = this.getSharedPreferences("phone_start", 0);
-        String answer = sharedPreferences.getString("phone", "");
-        return answer;
-    }*/
+    //查询用户信息
+    public void getUser(String phone){
+        Map<String,String> map = new HashMap<>();
+        map.put("phone",phone);
+        new Thread(() -> {
+            SharedPreferences sp = getSharedPreferences("userDataPreferences", 0);
+            String userInformation =  HttpUtils.sendPostMessage(map,"UTF-8","findUserInformation");
+            if(userInformation.equals("-999")){
+                userInformation =sp.getString("userInformation","null");
+                this.uData = JSONArray.parseObject(userInformation, userData.class);
+                Log.d("userInformation", uData.getPhone());
+            }else {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("userInformation",userInformation);
+                editor.apply();
+                this.uData = JSONArray.parseObject(userInformation, userData.class);
+                Log.d("userInformation",uData.getPhone());
+            }
+            //腾讯三方登录（用于后续聊天）
+            TencentIM.load(phone,uData);
+        }).start();
+    }
 }

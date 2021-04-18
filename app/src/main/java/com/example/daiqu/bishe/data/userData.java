@@ -1,13 +1,24 @@
 package com.example.daiqu.bishe.data;
 
 public class userData {
+    private userData uData;
     private int id;
     private String identity;
     private String sex;
     private String phone;
     private String introduce;
     private String name;
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
     private String pwd;
+    private String pic;
 
     public int getId() {
         return id;
