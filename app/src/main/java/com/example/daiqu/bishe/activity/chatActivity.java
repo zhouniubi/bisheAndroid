@@ -36,7 +36,7 @@ public class chatActivity extends Activity {
     private msgAdapter adapter;
     private List<msgData> list = new ArrayList<>();
     private List<V2TIMMessage> v2TIMMessages1;
-    private String toUser,sender;
+    private String toUserId,sender,toUserName;
     private V2TIMConversation conversation;
     private LinearLayoutManager layoutManager;
     @Override
@@ -49,13 +49,13 @@ public class chatActivity extends Activity {
         //状态栏文字自适应
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_chat);
-        toUser = getIntent().getStringExtra("toUser");
+        toUserId = getIntent().getStringExtra("toUserId");
+        toUserName = getIntent().getStringExtra("toUserName");
         sender = startActivity.phone;
         initWidget();
         getHistoryMsg();
         onSendMsg();
         getNewMasg();
-        //onGetMsg();
     }
     protected void initWidget(){
         layoutManager = new LinearLayoutManager(this);
@@ -63,7 +63,7 @@ public class chatActivity extends Activity {
         input_chat_msg = findViewById(R.id.input_chat_msg);
         chat_msg_commit = findViewById(R.id.chat_msg_commit);
         title_name = findViewById(R.id.title_name);
-        title_name.setText(toUser);
+        title_name.setText(toUserName);
         //setMsgAdapter();
     }
     protected void onSendMsg(){
@@ -71,7 +71,7 @@ public class chatActivity extends Activity {
             String msg = input_chat_msg.getText().toString();
             Log.d("msgdata", msg);
             if(!"".equals(msg)){
-                TencentIM.sendMsg(toUser, msg);
+                TencentIM.sendMsg(toUserId, msg);
                 getHistoryMsg();
                 input_chat_msg.setText("");
             }
@@ -91,17 +91,17 @@ public class chatActivity extends Activity {
     }
     //获得历史消息
     protected void getHistoryMsg(){
-        V2TIMManager.getMessageManager().getC2CHistoryMessageList(toUser, 20, null, new V2TIMValueCallback<List<V2TIMMessage>>() {
+        V2TIMManager.getMessageManager().getC2CHistoryMessageList(toUserId, 20, null, new V2TIMValueCallback<List<V2TIMMessage>>() {
             @Override
             public void onError(int i, String s) {
-                Log.d("historyLog", "拉取失败");
+                Log.d("historyLog", "拉取聊天记录失败");
             }
             @Override
             public void onSuccess(List<V2TIMMessage> v2TIMMessages) {
                 Collections.reverse(v2TIMMessages);
                 v2TIMMessages1 = v2TIMMessages;
                 Log.d("msgSize", String.valueOf(v2TIMMessages1.size()));
-                Log.d("historyLog", "拉取成功");
+                Log.d("historyLog", "拉取聊天记录成功");
                 //设置消息适配器
                 adapter = new msgAdapter(v2TIMMessages1,sender);
                 recyclerView.setLayoutManager(layoutManager);

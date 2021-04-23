@@ -116,12 +116,13 @@
             android:textColor="#FF0000"
             android:textSize="12sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginTop="2dp">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/login_pwd_verify"
@@ -130,8 +131,8 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext2"
             android:hint="确认密码:"
-            android:maxLength="15"
             android:inputType="textPassword"
+            android:maxLength="15"
             android:textColorHint="#CFCCCC"
             android:textSize="15sp" />
 
@@ -155,22 +156,22 @@
             android:textColor="#FF0000"
             android:textSize="12sp" />
     </RelativeLayout>
+
     <RadioGroup
         android:id="@+id/login_radioGropSex"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:gravity="center"
         android:layout_marginTop="10dp">
         <RadioButton
             android:id="@+id/radio_bt_boy"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginStart="100dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/select_radio_bt_image"
             android:button="@null"
             android:padding="5dp" />
-
         <TextView
             android:id="@+id/text_boy"
             android:layout_width="wrap_content"
@@ -206,12 +207,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:gravity="center"
         android:layout_marginTop="15dp">
         <RadioButton
             android:id="@+id/radio_bt_teacher"
             android:layout_width="70dp"
             android:layout_height="40dp"
-            android:layout_marginStart="90dp"
             android:background="@drawable/select_radio_bt_shape"
             android:button="@null"
             android:text="教师"
@@ -237,14 +238,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
         android:orientation="horizontal">
     <EditText
         android:id="@+id/yanzheng_code"
         android:layout_width="200dp"
         android:layout_height="45dp"
         android:background="@drawable/edittext2"
-        android:layout_marginStart="50dp"
+        android:layout_alignParentStart="true"
         android:hint="点击按钮获得验证码："
         android:textColorHint="#CFCCCC"
         android:textSize="15sp"
@@ -262,7 +264,8 @@
             android:id="@+id/getyanzheng"
             android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_marginLeft="265dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/yanzheng_code"
             android:gravity="center"
             android:textSize="13sp"
             android:background="@drawable/select_yanzhen_bt"

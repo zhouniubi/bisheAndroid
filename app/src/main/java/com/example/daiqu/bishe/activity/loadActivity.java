@@ -50,8 +50,6 @@ public class loadActivity extends Activity {
         //将当前活动加入管理器进行管理
         ldActivity = this;
         ActivityCollector.addActivity(this);
-        /*Intent intentService = new Intent(this, LinkedTestService.class);
-        startService(intentService);*/
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //隐藏标题栏

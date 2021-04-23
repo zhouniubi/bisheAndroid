@@ -28,7 +28,6 @@
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="10dp"
             android:paddingTop="10dp"
             android:textSize="25sp"
@@ -67,6 +66,9 @@
             android:layout_toEndOf="@id/user_pic"
             android:layout_below="@id/user_sex"
             android:layout_alignStart="@id/user_name"
+            android:ellipsize="end"
+            android:maxEms="15"
+            android:singleLine="true"
             android:text="个人介绍：我是大个好人哦"/>
     </RelativeLayout>
     <RelativeLayout
@@ -89,7 +91,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="15dp"
-            android:src="@drawable/xiugai2"/>
+            android:src="@drawable/xiugai6"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +111,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:src="@drawable/xiugai3"/>
+                android:src="@drawable/xiugai4"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,25 +121,46 @@
                 android:text="反馈意见"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/destory_user"
+            android:id="@+id/update_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/back_msg"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
+            >
             <ImageView
-                android:id="@+id/destory_user_pic"
+                android:id="@+id/update_pwd_pic"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:src="@drawable/destory"/>
+                android:src="@drawable/pwd_img2"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/destory_user_pic"
-                android:text="注销账户"/>
+                android:layout_toEndOf="@id/update_pwd_pic"
+                android:text="修改密码"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/update_mibao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/update_pwd"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:id="@+id/update_mibao_pic"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/mibao_img"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/update_mibao_pic"
+                android:text="修改密保"/>
         </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout

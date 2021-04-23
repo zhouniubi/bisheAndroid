@@ -387,10 +387,10 @@ public class showTaskInformation extends Activity {
             }
         });
         task_info_chat.setOnClickListener(v -> {
-           /* Intent intent = new Intent();
-            intent.putExtra("toUser", AES.decrypt(data.getAccepterPhone()));
+            Intent intent = new Intent(this,chatActivity.class);
+            intent.putExtra("toUserId", AES.decrypt(data.getAccepterPhone()));
             intent.putExtra("toUserName", AES.decrypt(data.getAccepterName()));
-            startActivity(intent);*/
+            startActivity(intent);
 
 
         });

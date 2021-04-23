@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.daiqu.R;
+import com.example.daiqu.bishe.TencentUtils.TencentIM;
 import com.example.daiqu.bishe.tool.AES;
 import com.tencent.imsdk.v2.V2TIMMessage;
 
@@ -20,6 +21,7 @@ public class msgAdapter extends RecyclerView.Adapter<msgAdapter.ViewHolder> {
     private List<V2TIMMessage> msgList;
     //private V2TIMConversation conversation;
     private String sender;
+    private View view;
     static class ViewHolder extends RecyclerView.ViewHolder{
         LinearLayout get_chat,post_chat;
         TextView get_msg,post_msg;
@@ -48,6 +50,7 @@ public class msgAdapter extends RecyclerView.Adapter<msgAdapter.ViewHolder> {
     public msgAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycleview_msg_item, parent, false);
+        this.view = view;
         return new ViewHolder(view);
     }
 
@@ -59,10 +62,14 @@ public class msgAdapter extends RecyclerView.Adapter<msgAdapter.ViewHolder> {
             holder.get_chat.setVisibility(View.GONE);
             holder.post_chat.setVisibility(View.VISIBLE);
             holder.post_msg.setText(msg.getTextElem().getText());
+            String id = msg.getSender();
+            TencentIM.setPic(view, id, R.id.poster_pic);
         }else{
             holder.get_chat.setVisibility(View.VISIBLE);
             holder.post_chat.setVisibility(View.GONE);
             holder.get_msg.setText(msg.getTextElem().getText());
+            String id = msg.getUserID();
+            TencentIM.setPic(view, id, R.id.geter_pic);
         }
     }
 

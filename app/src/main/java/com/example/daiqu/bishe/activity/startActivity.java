@@ -53,7 +53,7 @@ public class startActivity extends FragmentActivity {
     private TextView title_text;
     private ImageView title_add;
     private String data = "";
-    public userData uData;
+    public static userData uData;
     //private final MyHandler handler = new MyHandler(this);
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -73,11 +73,9 @@ public class startActivity extends FragmentActivity {
         切忌修改该参数！！！！*/
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         initwidget();
-
        /* //初始化腾讯服务
         TencentIM.initIm(this);*/
         getUser(phone);
-
         vpager.setAdapter(mAdapter);
         vpager.setOffscreenPageLimit(2);
         vpager.setCurrentItem(0);

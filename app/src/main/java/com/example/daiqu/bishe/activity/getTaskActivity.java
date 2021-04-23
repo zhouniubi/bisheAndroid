@@ -63,7 +63,7 @@ public class getTaskActivity extends Activity {
             map.put("state", "01");
             map.put("accepterPhone", phone);
             String data = HttpUtils.sendPostMessage(map, "UTF-8", "findTaskByStateAndPhone");
-
+            netState = data;
             if (data.equals("-999")) {
                 Looper.prepare();
                 Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT).show();
@@ -124,7 +124,7 @@ public class getTaskActivity extends Activity {
             }));
         });
         postTaskList.setOnItemClickListener((parent, view, position, id) -> {
-            if(netState.equals("-999")) {
+            if(!netState.equals("-999")) {
                 TaskDataWithName taskData = list.get(position);
                 Intent intent = new Intent(this, showTaskInformation2.class);
                 intent.putExtra("taskData", taskData);

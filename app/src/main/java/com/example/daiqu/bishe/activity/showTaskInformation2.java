@@ -295,6 +295,12 @@ public class showTaskInformation2 extends Activity {
                 bigPic.cancel();
             });
         });
+        task_info_chat.setOnClickListener(v -> {
+            Intent intent = new Intent(this,chatActivity.class);
+            intent.putExtra("toUserId", AES.decrypt(data.getPublisherPhone()));
+            intent.putExtra("toUserName", AES.decrypt(data.getPublisherName()));
+            startActivity(intent);
+        });
         task_info_confirm.setOnClickListener(v -> {
             showConfirmDialog("确认送达?");
             confirm_Dialog.getWindow().findViewById(R.id.cancle_button).setOnClickListener(v1 -> {

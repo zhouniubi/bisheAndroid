@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".bishe.fragment.taskFragment"
     android:background="@drawable/layout_style1"
+    android:id="@+id/fragment_message"
     >
     <!-- TODO: Update blank fragment layout -->
     <TextView

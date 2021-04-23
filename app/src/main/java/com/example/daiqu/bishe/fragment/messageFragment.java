@@ -1,20 +1,24 @@
 package com.example.daiqu.bishe.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.alibaba.fastjson.JSONArray;
 import com.example.daiqu.R;
 import com.example.daiqu.bishe.activity.chatActivity;
 import com.example.daiqu.bishe.adapter.chatRoomListAdapter;
+import com.example.daiqu.bishe.data.userData;
 import com.tencent.imsdk.v2.V2TIMConversation;
 import com.tencent.imsdk.v2.V2TIMConversationListener;
 import com.tencent.imsdk.v2.V2TIMConversationManager;
@@ -37,10 +41,13 @@ public class messageFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+    private View view;
     private String mParam1;
     private String mParam2;
     private List<V2TIMConversation> listV2;
     private ListView listView;
+    private userData uData;
+    private String userInformation;
     public messageFragment() {
         // Required empty public constructor
     }
@@ -72,21 +79,23 @@ public class messageFragment extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_message, container, false);
-        initWidget(view);
+        this.view = view;
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initWidget(view);
         oncLick();
     }
-
     public void initWidget(View view){
         listView = view.findViewById(R.id.chat_room_list);
         getActivity().runOnUiThread(()->{
@@ -102,7 +111,7 @@ public class messageFragment extends Fragment {
                 public void onSyncServerFinish() {
                     super.onSyncServerFinish();
                     Log.d("TencentServeState", "服务器同步完成");
-                    //拉取50个会话用作展示
+                    //拉取100个会话用作展示
                     manager.getConversationList(0, 100, new V2TIMValueCallback<V2TIMConversationResult>() {
                         @Override
                         public void onError(int i, String s) {
@@ -127,6 +136,18 @@ public class messageFragment extends Fragment {
                     super.onSyncServerFailed();
                     Log.d("TencentServeState", "服务器同步失败");
                 }
+
+                @Override
+                public void onConversationChanged(List<V2TIMConversation> conversationList) {
+                    super.onConversationChanged(conversationList);
+                    Log.d("ConversationState", "会话更新");
+                }
+
+                @Override
+                public void onNewConversation(List<V2TIMConversation> conversationList) {
+                    super.onNewConversation(conversationList);
+                    Log.d("ConversationState", "会话新增");
+                }
             });
 
 
@@ -137,9 +158,28 @@ public class messageFragment extends Fragment {
             Intent intent = new Intent(getActivity(), chatActivity.class);
             V2TIMConversation conversation = listV2.get(position);
             String toId = conversation.getUserID();
-            intent.putExtra("toUser",toId);
+            String toName = conversation.getShowName();
+            intent.putExtra("toUserId",toId);
+            intent.putExtra("toUserName",toName);
             startActivity(intent);
         });
+        //设置长按点击删除
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return false;
+            }
+        });
+    }
+    public userData getUserData(){
+        SharedPreferences sp = getActivity().getSharedPreferences("userDataPreferences", 0);
+        String userInformation = sp.getString("userInformation","null");
+        Log.d("frag", userInformation);
+        if(!userInformation.equals("null")){
+            return JSONArray.parseObject(userInformation, userData.class);
+        }else{
+            return null;
+        }
     }
 
 }

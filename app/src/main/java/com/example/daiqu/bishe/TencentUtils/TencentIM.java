@@ -2,7 +2,10 @@ package com.example.daiqu.bishe.TencentUtils;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.example.daiqu.R;
 import com.example.daiqu.bishe.data.userData;
 import com.example.daiqu.bishe.tool.AES;
 import com.tencent.imsdk.v2.V2TIMCallback;
@@ -12,6 +15,9 @@ import com.tencent.imsdk.v2.V2TIMSDKConfig;
 import com.tencent.imsdk.v2.V2TIMSDKListener;
 import com.tencent.imsdk.v2.V2TIMUserFullInfo;
 import com.tencent.imsdk.v2.V2TIMValueCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TencentIM {
     //对应的APPID
@@ -79,7 +85,6 @@ public class TencentIM {
             public void onError(int i, String s) {
                 Log.d("sendState", "发送失败！");
             }
-
             @Override
             public void onSuccess(V2TIMMessage v2TIMMessage) {
                 Log.d("sendState", "发送成功！msg是："+msg);
@@ -97,16 +102,56 @@ public class TencentIM {
                 Log.d("setUserMsg", "设置个人信息失败"+"错误码："+i+";"+"错误信息："+s);
 
             }
-
             @Override
             public void onSuccess() {
                 Log.d("setUserMsg", "设置个人信息成功");
             }
         };
         V2TIMUserFullInfo userFullInfo = new V2TIMUserFullInfo();
-
         userFullInfo.setNickname(AES.decrypt(uData.getName()));
-        //userFullInfo.setFaceUrl(uData.getPic());
+        userFullInfo.setSelfSignature(uData.getPic());
         V2TIMManager.getInstance().setSelfInfo(userFullInfo,callback);
+    }
+    //获取用户头像
+    //设置会话显示的头像（id：用户id;imageViewId:imageView绑定的控件的id）
+    public static void setPic(View view,String id,int imageViewId){
+        ImageView imageView = view.findViewById(imageViewId);
+        List<String> list = new ArrayList<>();
+        list.add(id);
+        V2TIMValueCallback<List<V2TIMUserFullInfo>> callback = new V2TIMValueCallback<List<V2TIMUserFullInfo>>() {
+            @Override
+            public void onError(int i, String s) {
+                Log.d("getUserMsg","获取个人信息失败"+"错误码："+i+";"+"错误信息："+s);
+            }
+            @Override
+            public void onSuccess(List<V2TIMUserFullInfo> v2TIMUserFullInfos) {
+                Log.d("getUserMsg","获取个人信息成功！");
+                String pic = v2TIMUserFullInfos.get(0).getSelfSignature();
+                Log.d("userPic", "userPic是："+pic);
+                switch (pic){
+                    case "000":
+                        imageView.setImageResource(R.drawable.boy_img);
+                        break;
+                    case "001":
+                        imageView.setImageResource(R.drawable.boy_img1);
+                        break;
+                    case "002":
+                        imageView.setImageResource(R.drawable.boy_img2);
+                        break;
+                    case "100":
+                        imageView.setImageResource(R.drawable.girl_img);
+                        break;
+                    case "101":
+                        imageView.setImageResource(R.drawable.girl_img1);
+                        break;
+                    case "102":
+                        imageView.setImageResource(R.drawable.girl_img2);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        V2TIMManager.getInstance().getUsersInfo(list,callback);
     }
 }

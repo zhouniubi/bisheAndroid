@@ -232,15 +232,6 @@ public class forgetPwdActivity1 extends Activity {
         cha3.setOnClickListener(v -> mibao1.setText(""));
         cha4.setOnClickListener(v -> mibao2.setText(""));
         //设置密码可见性
-        /*eye1.setOnTouchListener((v, event) -> {
-            if (true) {
-                eye1.setImageResource(R.drawable.eye_open);
-                forget_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eye1.setSelected(false);
-                loadActivity.setSelectionEnd(forget_pwd);
-            }
-            return false;
-        });*/
         eye1.setOnClickListener(v -> {
             if (!eye1.isSelected()) {
                 //eye1.setImageResource(R.drawable.eye_open);
@@ -255,15 +246,6 @@ public class forgetPwdActivity1 extends Activity {
             }
         });
         //设置密码可见性
-       /* eye4.setOnTouchListener((v, event) -> {
-            if (true) {
-                eye4.setImageResource(R.drawable.eye_open);
-                forget_pwd_verify.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eye4.setSelected(false);
-                loadActivity.setSelectionEnd(forget_pwd_verify);
-            }
-            return false;
-        });*/
         eye4.setOnClickListener(v -> {
             if (!eye4.isSelected()) {
                 eye4.setImageResource(R.drawable.eye_open);

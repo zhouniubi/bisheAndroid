@@ -300,7 +300,6 @@
         android:layout_marginEnd="10dp"
         android:layout_below="@+id/taskInformationPart3"
         android:background="@drawable/layout_style2">
-
         <EditText
             android:id="@+id/task_info_introduce"
             android:layout_width="match_parent"

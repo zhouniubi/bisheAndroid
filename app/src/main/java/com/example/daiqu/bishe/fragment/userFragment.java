@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.alibaba.fastjson.JSONArray;
 import com.example.daiqu.R;
 import com.example.daiqu.bishe.TencentUtils.TencentIM;
+import com.example.daiqu.bishe.data.userData;
+import com.example.daiqu.bishe.tool.AES;
 import com.example.daiqu.bishe.tool.ActivityCollector;
 
 /**
@@ -29,6 +34,9 @@ public class userFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RelativeLayout user_information_layout3;
+    private TextView user_name,user_identity,user_introduce;
+    private ImageView sex_pic;
+    private userData uData;
     public userFragment() {
         // Required empty public constructor
     }
@@ -65,12 +73,33 @@ public class userFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_user, container, false);
+        getUser();
         initWidget(view);
         onClick();
         return view;
     }
     private void initWidget(View view){
         user_information_layout3 = view.findViewById(R.id.user_information_layout3);
+        user_name = view.findViewById(R.id.user_name);
+        user_identity = view.findViewById(R.id.user_identity);
+        sex_pic = view.findViewById(R.id.sex_pic);
+        user_introduce = view.findViewById(R.id.user_introduce);
+        user_name.setText("姓名："+ AES.decrypt(uData.getName()));
+        if(uData.getIdentity().equals("1")){
+            user_identity.setText("身份：教师");
+        }else{
+            user_identity.setText("身份：学生");
+        }
+        if(uData.getSex().equals("1")){
+            sex_pic.setImageResource(R.drawable.sex_boy);
+        }else{
+            sex_pic.setImageResource(R.drawable.sex_girl);
+        }
+        if(uData.getIntroduce().equals("null")){
+            user_introduce.setText("个人信息：暂无");
+        }else{
+            user_introduce.setText("个人信息："+uData.getIntroduce());
+        }
     }
     private void onClick(){
         user_information_layout3.setOnClickListener(v -> {
@@ -82,5 +111,10 @@ public class userFragment extends Fragment {
             TencentIM.logout();
             ActivityCollector.finishAll();
         });
+    }
+    private void getUser(){
+        SharedPreferences sp = getActivity().getSharedPreferences("userDataPreferences", 0);
+        String userInformation =sp.getString("userInformation","null");
+        uData = JSONArray.parseObject(userInformation,userData.class);
     }
 }
