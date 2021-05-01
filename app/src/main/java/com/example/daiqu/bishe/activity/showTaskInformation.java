@@ -478,14 +478,7 @@ public class showTaskInformation extends Activity {
     private void showProcess() {
         if (dialog == null) {
             dialog = processDialog.createLoadingDialog(this, "正在加载");
-            WindowManager m = this.getWindowManager();
-            Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
-            Window dialogWindow = dialog.getWindow();
-            WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-            Point size = new Point();
-            d.getSize(size);
-            p.height = (int) (size.y * 0.2);
-            p.width = (int) (size.x * 0.8);
+            tool.setDialogSize(this, dialog, 0.2, 0.8);
             dialog.show();
         }
     }
@@ -501,14 +494,7 @@ public class showTaskInformation extends Activity {
     private void showConfirmDialog(String text) {
         if (confirm_Dialog == null) {
             confirm_Dialog = confirmDialog.createLoadingDialog(this, text);
-            WindowManager m = this.getWindowManager();
-            Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
-            Window dialogWindow = confirm_Dialog.getWindow();
-            WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-            Point size = new Point();
-            d.getSize(size);
-            p.height = (int) (size.y * 0.2);
-            p.width = (int) (size.x * 0.6);
+            tool.setDialogSize(this, confirm_Dialog, 0.2,0.6);
             confirm_Dialog.show();
         }
     }

@@ -1,31 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_update"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center">
-    <EditText
-        android:id="@+id/update_user_name"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="信息修改"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edittext2"
-        android:hint="请输入姓名:"
-        android:maxLength="15"
-        android:textColorHint="#CFCCCC"
-        android:textSize="15sp" />
-</RelativeLayout>
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/select_pic1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_user_pic"
+            android:src="@drawable/boy_img"
+            />
+
+        <ImageView
+            android:id="@+id/select_pic2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/select_pic1"
+            android:background="@drawable/selector_user_pic"
+            android:src="@drawable/boy_img1" />
+
+        <ImageView
+            android:id="@+id/select_pic3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/select_pic2"
+            android:background="@drawable/selector_user_pic"
+            android:src="@drawable/boy_img2" />
+
+        <ImageView
+            android:id="@+id/select_pic4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/select_pic1"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_user_pic"
+            android:src="@drawable/girl_img" />
+
+        <ImageView
+            android:id="@+id/select_pic5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/select_pic2"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/select_pic4"
+            android:background="@drawable/selector_user_pic"
+            android:src="@drawable/girl_img1" />
+
+        <ImageView
+            android:id="@+id/select_pic6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/select_pic3"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/select_pic5"
+            android:background="@drawable/selector_user_pic"
+            android:src="@drawable/girl_img2" />
+    </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/update_user_name"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/edittext2"
+            android:hint="请输入姓名:"
+            android:maxLength="15"
+            android:textColorHint="#CFCCCC"
+            android:textSize="15sp" />
+
     <RadioGroup
         android:id="@+id/update_radioGropSex"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/radio_bt_boy1"
             android:layout_width="25dp"
@@ -34,13 +111,14 @@
             android:background="@drawable/select_radio_bt_image"
             android:button="@null"
             android:padding="5dp" />
+
         <TextView
             android:id="@+id/text_boy1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:text="男"
-            android:layout_gravity="center_vertical"
             android:textColor="@color/select_text_color"
             android:textSize="20sp" />
 
@@ -48,39 +126,42 @@
             android:id="@+id/radio_bt_girl1"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginStart="100dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="100dp"
             android:background="@drawable/select_radio_bt_image"
             android:button="@null"
             android:padding="5dp" />
+
         <TextView
             android:id="@+id/text_girl1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:text="女"
-            android:layout_gravity="center_vertical"
             android:textColor="@color/select_text_color"
             android:textSize="20sp" />
     </RadioGroup>
+
     <RadioGroup
         android:id="@+id/update_radioGropIdentity"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
         android:gravity="center"
-        android:layout_marginTop="15dp">
+        android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/radio_bt_teacher1"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:background="@drawable/select_radio_bt_shape"
             android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="教师"
             android:textColor="@color/white"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:padding="10dp" />
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/radio_bt_student1"
@@ -89,11 +170,11 @@
             android:layout_marginStart="80dp"
             android:background="@drawable/select_radio_bt_shape"
             android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="学生"
             android:textColor="@color/white"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:padding="10dp" />
+            android:textSize="15sp" />
     </RadioGroup>
 
     <RelativeLayout
@@ -104,16 +185,15 @@
         android:background="@drawable/layout_style2">
 
         <EditText
-            android:id="@+id/task_info_introduce"
+            android:id="@+id/update_task_info_introduce"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/edittext2"
             android:layout_marginTop="20dp"
-            android:focusable="false"
-            android:hint="任务详情："
+            android:background="@drawable/edittext2"
+            android:hint="个人介绍："
             android:longClickable="false"
             android:padding="10dp"
-            android:textColor="@color/smssdk_gray"
+            android:textColorHint="#CFCCCC"
             android:textSize="15sp" />
 
         <TextView
@@ -125,17 +205,39 @@
             android:layout_marginEnd="10dp"
             android:textSize="12sp" />
     </RelativeLayout>
-    <Button
-        android:id="@+id/update_commit"
-        android:layout_width="85dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/select_yanzhen_bt"
-        android:gravity="center"
-        android:text="提交"
-        android:textColor="@color/white"
-        android:padding="10dp"
-        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/update_commit"
+            android:layout_width="85dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/select_yanzhen_bt"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/update_exit"
+            android:layout_width="85dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toEndOf="@+id/update_commit"
+            android:background="@drawable/button2"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
 </LinearLayout>

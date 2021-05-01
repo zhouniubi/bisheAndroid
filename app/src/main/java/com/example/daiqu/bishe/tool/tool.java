@@ -3,16 +3,21 @@ package com.example.daiqu.bishe.tool;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Display;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -201,6 +206,17 @@ public class tool {
                 }
             }
         });
+    }
+    //设置对话框的大小
+    public static void setDialogSize(Activity activity, Dialog dialog,Double height,Double width){
+        WindowManager m = activity.getWindowManager();
+        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+        Window dialogWindow = dialog.getWindow();
+        WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        Point size = new Point();
+        d.getSize(size);
+        p.height = (int) (size.y * height);
+        p.width = (int) (size.x * width);
     }
 
 }

@@ -34,7 +34,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="25dp"
         android:id="@+id/geter_pic"
-        android:background="@drawable/girl_img"/>
+        android:src="@drawable/girl_img"/>
 </LinearLayout>
     <LinearLayout
         android:id="@+id/post_chat"
@@ -69,6 +69,6 @@
         android:layout_marginEnd="25dp"
         android:layout_gravity="right"
         android:id="@+id/poster_pic"
-        android:background="@drawable/boy_img"/>
+        android:src="@drawable/boy_img"/>
     </LinearLayout>
 </LinearLayout>

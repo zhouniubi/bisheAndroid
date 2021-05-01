@@ -13,4 +13,5 @@
     <color name="task_state1">#F44336</color>
     <color name="task_state2">#FFEB3B</color>
     <color name="task_state3">#4CAF50</color>
+    <color name="smssdk_gray1">#40E3E0E0</color>
 </resources>

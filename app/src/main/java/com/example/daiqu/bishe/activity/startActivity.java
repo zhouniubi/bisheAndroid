@@ -41,7 +41,7 @@ public class startActivity extends FragmentActivity {
     private RadioGroup radiogroup_bottom;
     private TextView text_daiqu, text_message, text_user;
     private RadioButton frag_task, frag_message, frag_user;
-    private ViewPager vpager;
+    public static ViewPager vpager;
     public static String phone = "";
     private MyFragmentPagerAdapter mAdapter;
     public static final int PAGE_ONE = 0;
@@ -54,11 +54,13 @@ public class startActivity extends FragmentActivity {
     private ImageView title_add;
     private String data = "";
     public static userData uData;
+    private Bundle savedInstanceState;
     //private final MyHandler handler = new MyHandler(this);
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.savedInstanceState = savedInstanceState;
         ActivityCollector.addActivity(this);
         if(ActivityCollector.activityList.contains(loadActivity.ldActivity)){
             ActivityCollector.removeActivity(loadActivity.ldActivity);
@@ -68,16 +70,14 @@ public class startActivity extends FragmentActivity {
         //状态栏文字自适应
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_start1);
-        /*此处备注：getSupportFragmentManager（）函数与最新的自定义的MyFragmentPagerAdapter有冲突
+        initwidget();
+         /*此处备注：getSupportFragmentManager（）函数与最新的自定义的MyFragmentPagerAdapter有冲突
         ，具体冲突在于android x中原有的方法被弃用，多了一个参数的输入，待后期官方更新后即可改回，多出的参数为'BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT'
         切忌修改该参数！！！！*/
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        initwidget();
-       /* //初始化腾讯服务
-        TencentIM.initIm(this);*/
         getUser(phone);
         vpager.setAdapter(mAdapter);
-        vpager.setOffscreenPageLimit(2);
+        //vpager.setOffscreenPageLimit(2);
         vpager.setCurrentItem(0);
         title_text.setText("任务");
         setRadioBtChecked(true, false, false);
@@ -176,8 +176,8 @@ public class startActivity extends FragmentActivity {
                 startActivity(intent);
             });
         });
-
     }
+
 
     //封装所有的文本的选择状态
     private void setTextSelected(boolean daiqu, boolean message, boolean user) {

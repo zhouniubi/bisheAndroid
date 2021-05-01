@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/dialog_pwd"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edittext2"
+        android:hint="请输入密码："
+        android:inputType="textPassword" />
+    <ImageView
+        android:id="@+id/eye7"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignBottom="@id/dialog_pwd"
+        android:layout_alignEnd="@id/dialog_pwd"
+        android:padding="10dp"
+        android:src="@drawable/select_eye"
+        android:visibility="visible" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_pwd"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center">
+    <Button
+        android:id="@+id/into_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:background="@drawable/select_load_bt"
+        android:textColor="@color/white"
+        android:text="✔‍"
+        android:textSize="20sp"/>
+    </LinearLayout>
+</RelativeLayout>
