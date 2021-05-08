@@ -6,8 +6,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -22,15 +20,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.example.daiqu.R;
 import com.example.daiqu.bishe.TencentUtils.TencentIM;
 import com.example.daiqu.bishe.tool.AES;
 import com.example.daiqu.bishe.tool.ActivityCollector;
 import com.example.daiqu.bishe.tool.HttpUtils;
+import com.example.daiqu.bishe.tool.returnState;
 
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,8 +54,7 @@ public class loadActivity extends Activity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         SharedPreferences  sharedPreferences = getSharedPreferences("loadStatePerference", 0);
         String loadState = sharedPreferences.getString("loadState", "null");
-
-        if (loadState.equals("111")) {
+        if (loadState.equals(returnState.load_success)) {
             //初始化腾讯服务
             TencentIM.initIm(this);
             //设置自动登录
@@ -75,7 +70,6 @@ public class loadActivity extends Activity {
             notice = findViewById(R.id.noticeMsg);
             cha = findViewById(R.id.cha1);
             eye = findViewById(R.id.eye);
-
             load_forget = findViewById(R.id.load_forget);
             load_login = findViewById(R.id.load_login);
             load_introduce = findViewById(R.id.load_introduce);
@@ -97,7 +91,7 @@ public class loadActivity extends Activity {
                             notice.setText("请输入正确的手机号！");
                         } else {
                             switch (state) {
-                                case "111":
+                                case returnState.load_success:
                                     //初始化腾讯服务
                                     TencentIM.initIm(this);
                                     Intent intent = new Intent(loadActivity.this, startActivity.class);
@@ -108,10 +102,10 @@ public class loadActivity extends Activity {
                                     editor.apply();
                                     startActivity(intent);
                                     break;
-                                case "110":
+                                case returnState.error_pwd:
                                     notice.setText("密码错误！");
                                     break;
-                                case "100":
+                                case returnState.user_not_exit:
                                     notice.setText("用户不存在！");
                                     break;
                                 default:
@@ -241,21 +235,6 @@ public class loadActivity extends Activity {
                 eye.requestFocus();
                 load_button.setEnabled(true);
             }
-        }
-    }
-
-    //定义内部类的handler解决警报问题（关于潜在的内存泄漏问题）
-    static class MyHandler extends Handler {
-        WeakReference<Activity> mActivity;
-
-        MyHandler(Activity activity) {
-            mActivity = new WeakReference<Activity>(activity);
-        }
-
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-
         }
     }
 

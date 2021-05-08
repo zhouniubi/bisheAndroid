@@ -26,7 +26,7 @@ import okhttp3.Response;
 import static com.mob.MobSDK.getContext;
 
 public class HttpUtils {
-    private static String PATH = "http://192.168.1.3:8080/";
+    private static String PATH = "http://10.16.66.2:8080/";
     private static URL url;
 
     public HttpUtils() {

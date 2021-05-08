@@ -204,6 +204,5 @@ public class userFragment extends Fragment {
         SharedPreferences sp = getActivity().getSharedPreferences("userDataPreferences", 0);
         String userInformation =sp.getString("userInformation","null");
         uData = JSONArray.parseObject(userInformation,userData.class);
-
     }
 }

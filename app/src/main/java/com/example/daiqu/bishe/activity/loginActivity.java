@@ -27,6 +27,7 @@ import com.example.daiqu.R;
 import com.example.daiqu.bishe.tool.AES;
 import com.example.daiqu.bishe.tool.ActivityCollector;
 import com.example.daiqu.bishe.tool.HttpUtils;
+import com.example.daiqu.bishe.tool.returnState;
 import com.example.daiqu.bishe.tool.tool;
 import com.mob.MobSDK;
 
@@ -94,10 +95,10 @@ public class loginActivity extends Activity {
                 }
             } else if (msg.what == 2) {
                 String state = msg.obj.toString();
-                if (state.equals("11")) {
+                if (state.equals(returnState.insert_success)) {
                     Toast.makeText(myActivity, "注册成功啦，请返回登录界面(￣▽￣)", Toast.LENGTH_SHORT).show();
 
-                } else if (state.equals("10")) {
+                } else if (state.equals(returnState.insert_fail)) {
                     Toast.makeText(myActivity, "该手机号已被注册，请更换手机号呢（；´д｀）ゞ", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(myActivity, "数据库出错啦，请稍后重试＞︿＜", Toast.LENGTH_SHORT).show();

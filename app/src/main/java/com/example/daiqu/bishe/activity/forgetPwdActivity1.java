@@ -28,6 +28,7 @@ import com.example.daiqu.R;
 import com.example.daiqu.bishe.tool.AES;
 import com.example.daiqu.bishe.tool.ActivityCollector;
 import com.example.daiqu.bishe.tool.HttpUtils;
+import com.example.daiqu.bishe.tool.returnState;
 import com.example.daiqu.bishe.tool.tool;
 
 import java.lang.ref.WeakReference;
@@ -64,7 +65,7 @@ public class forgetPwdActivity1 extends Activity {
                 Log.d("listt",list.toString());
                 String head = list.get(0),body = list.get(1);
                 switch (head) {
-                    case "000":
+                    case returnState.user_not_exit:
                         myActivity.noticeMsg1.setText("不存在该用户！");
                         myActivity.search_mibao_img.setVisibility(View.VISIBLE);
                         myActivity.layout_pwd.setVisibility(View.GONE);
@@ -73,7 +74,7 @@ public class forgetPwdActivity1 extends Activity {
                         myActivity.layout_pwd_verify.setVisibility(View.GONE);
                         myActivity.forget_btn.setVisibility(View.GONE);
                         break;
-                    case "200":
+                    case returnState.mibao_not_exit:
                         myActivity.noticeMsg1.setText("您未设置密保，不能重置密码！");
                         myActivity.search_mibao_img.setVisibility(View.VISIBLE);
                         myActivity.layout_pwd.setVisibility(View.GONE);
@@ -82,7 +83,7 @@ public class forgetPwdActivity1 extends Activity {
                         myActivity.layout_pwd_verify.setVisibility(View.GONE);
                         myActivity.forget_btn.setVisibility(View.GONE);
                         break;
-                    case "220":
+                    case returnState.mibao2_not_exit:
                         myActivity.noticeMsg1.setText("");
                         myActivity.forget_phone.setEnabled(false);
                         myActivity.cha2.setVisibility(View.INVISIBLE);
@@ -94,7 +95,7 @@ public class forgetPwdActivity1 extends Activity {
                         myActivity.layout_mibao2.setVisibility(View.GONE);
                         myActivity.forget_btn.setVisibility(View.VISIBLE);
                         break;
-                    case "202":
+                    case returnState.mibao1_not_exit:
                         myActivity.noticeMsg1.setText("");
                         myActivity.forget_phone.setEnabled(false);
                         myActivity.cha2.setVisibility(View.INVISIBLE);
@@ -106,7 +107,7 @@ public class forgetPwdActivity1 extends Activity {
                         myActivity.mibao2.setHint("(密保2)："+AES.decrypt(list.get(1)));
                         myActivity.forget_btn.setVisibility(View.VISIBLE);
                         break;
-                    case "222":
+                    case returnState.mibao_exit:
                         myActivity.noticeMsg1.setText("");
                         myActivity.forget_phone.setEnabled(false);
                         myActivity.cha2.setVisibility(View.INVISIBLE);

@@ -169,7 +169,6 @@ public class updateDialog extends Dialog {
                     ActivityCollector.finishAll();
                     Intent intent = new Intent(context, startActivity.class);
                     context.startActivity(intent);
-
                 }else if(state.equals("db_error")){
                     Toast.makeText(context,"数据库异常！！", Toast.LENGTH_SHORT).show();
                 }else{
